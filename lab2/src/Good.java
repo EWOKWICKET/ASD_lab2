@@ -44,6 +44,13 @@ public class Good {
         this.price = price;
     }
 
+    public void addAmount(int amount) {
+        this.amount += amount;
+    }
+    public void reduceAmount(int amount) {
+        this.amount -= amount;
+    }
+
     @Override
     public String toString() {
         return name + " | опис: " + description + " | виробник: " + manufacturer + " | кількість на складі: " + amount + " | ціна: " + price;
