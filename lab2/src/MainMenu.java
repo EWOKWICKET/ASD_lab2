@@ -15,11 +15,12 @@ public class MainMenu extends JFrame implements ActionListener {
     JFrame mainFrame;
 
     public MainMenu() {
-        super("Програма для проботи з складом");
+        super("Програма для роботи з складом");
         this.setSize(700, 500);
         this.setLayout(new GridLayout(1, 2));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        ImageIcon icon=new ImageIcon("lab2/wareHouseIcon.png");
+        this.setIconImage(icon.getImage());
         init();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -38,6 +39,7 @@ public class MainMenu extends JFrame implements ActionListener {
         // Create a JLabel to display the image
         JLabel wareHouseLabel = new JLabel();
         wareHouseLabel.setIcon(wareHousePicture);
+        wareHouseLabel.setHorizontalAlignment(JLabel.CENTER);
         wareHouseLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         this.add(wareHouseLabel);
     }
@@ -141,7 +143,7 @@ public class MainMenu extends JFrame implements ActionListener {
             temp.setVisible(true);
         }
         else{
-            int option=JOptionPane.showConfirmDialog(null, "Ви точно хочете закрити програму?\nНезбережені дні буде назавжди втрачено","ALERT", JOptionPane.YES_NO_OPTION);
+            int option=JOptionPane.showConfirmDialog(null, "Ви точно хочете закрити програму?\nНезбережені дані буде назавжди втрачено","!!!", JOptionPane.YES_NO_OPTION);
             if(option==JOptionPane.YES_OPTION){
                 System.exit(0);
             }
