@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditGroupUI extends JFrame implements ActionListener {
+    MainMenu menu;
     JButton addNewGroup;
     JButton removeGroup;
     JButton changeGroup;
@@ -16,11 +17,6 @@ public class EditGroupUI extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setAllButtons();
-
-        this.add(addNewGroup);
-        this.add(removeGroup);
-        this.add(changeGroup);
-        this.add(back);
 
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -39,7 +35,18 @@ public class EditGroupUI extends JFrame implements ActionListener {
 
         back = new JButton("Back");
         back.addActionListener(this);
+
+        this.add(addNewGroup);
+        this.add(removeGroup);
+        this.add(changeGroup);
+        this.add(back);
+
     }
+
+    public void setMainMenu(MainMenu menu) {
+        this.menu = menu;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -51,7 +58,7 @@ public class EditGroupUI extends JFrame implements ActionListener {
             System.out.println("Changing");
         } else {
             this.setVisible(false);
-//            MainMenu.returned();
+            menu.returned();
         }
     }
 }

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StatisticsUI extends JFrame implements ActionListener {
+    MainMenu menu;
     JButton showAllStorageGoods;
     JButton showAllGroupGoods;
     JButton showStoragePrice;
@@ -17,12 +18,6 @@ public class StatisticsUI extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setAllButtons();
-
-        this.add(showAllStorageGoods);
-        this.add(showAllGroupGoods);
-        this.add(showStoragePrice);
-        this.add(showGroupPrice);
-        this.add(back);
 
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -44,7 +39,18 @@ public class StatisticsUI extends JFrame implements ActionListener {
 
         back = new JButton("Back");
         back.addActionListener(this);
+
+        this.add(showAllStorageGoods);
+        this.add(showAllGroupGoods);
+        this.add(showStoragePrice);
+        this.add(showGroupPrice);
+        this.add(back);
     }
+
+    public void setMainMenu(MainMenu menu) {
+        this.menu = menu;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -58,7 +64,7 @@ public class StatisticsUI extends JFrame implements ActionListener {
             System.out.println("Showing group price");
         } else {
             this.setVisible(false);
-//            MainMenu.returned();
+            menu.returned();
         }
     }
 }

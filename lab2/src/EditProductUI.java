@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditProductUI extends JFrame implements ActionListener {
+    MainMenu menu;
     JButton addNewProduct;
     JButton removeProduct;
     JButton changeProduct;
@@ -18,13 +19,6 @@ public class EditProductUI extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setAllButtons();
-
-        this.add(addNewProduct);
-        this.add(removeProduct);
-        this.add(changeProduct);
-        this.add(addAmount);
-        this.add(reduceAmount);
-        this.add(back);
 
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -49,6 +43,17 @@ public class EditProductUI extends JFrame implements ActionListener {
 
         back = new JButton("Back");
         back.addActionListener(this);
+
+        this.add(addNewProduct);
+        this.add(removeProduct);
+        this.add(changeProduct);
+        this.add(addAmount);
+        this.add(reduceAmount);
+        this.add(back);
+    }
+
+    public void setMainMenu(MainMenu menu) {
+        this.menu = menu;
     }
 
     @Override
@@ -61,11 +66,11 @@ public class EditProductUI extends JFrame implements ActionListener {
             System.out.println("Changing");
         } else if (e.getSource().equals(addAmount)) {
             System.out.println("Adding amount");
-        } else if (e.getSource().equals(removeProduct)){
+        } else if (e.getSource().equals(reduceAmount)){
             System.out.println("Reducing amount");
         } else {
             this.setVisible(false);
-//            MainMenu.returned();
+            menu.returned();
         }
     }
 }

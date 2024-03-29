@@ -26,12 +26,7 @@ public class MainMenu extends JFrame implements ActionListener {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
-        prodUI = new EditProductUI();
-        groupUI = new EditGroupUI();
-        statUI = new StatisticsUI();
-        prodUI.setVisible(false);
-        groupUI.setVisible(false);
-        statUI.setVisible(false);
+        setWindows();
     }
 
     private void setAllButtons() {
@@ -46,6 +41,19 @@ public class MainMenu extends JFrame implements ActionListener {
         statistics.addActionListener(this);
     }
 
+    private void setWindows() {
+        prodUI = new EditProductUI();
+        prodUI.setVisible(false);
+        prodUI.setMainMenu(this);
+
+        groupUI = new EditGroupUI();
+        groupUI.setVisible(false);
+        groupUI.setMainMenu(this);
+
+        statUI = new StatisticsUI();
+        statUI.setVisible(false);
+        statUI.setMainMenu(this);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         this.setVisible(false);
@@ -58,7 +66,7 @@ public class MainMenu extends JFrame implements ActionListener {
         }
     }
 
-//    public static void returned() {
-//        this.setVisible(true);
-//    }
+    public void returned() {
+        this.setVisible(true);
+    }
 }
