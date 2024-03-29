@@ -63,14 +63,13 @@ public class Group {
         return sum;
     }
 
-    public ArrayList<Good> findGood(String name) {
-        ArrayList<Good> found = new ArrayList<>();
+    public Good findGood(String name) {
         for (Good good: goods) {
             if (good.getName().equals(name)) {
-                found.add(good);
+                return good;
             }
         }
-        return found;
+        return null;
     }
 
     @Override

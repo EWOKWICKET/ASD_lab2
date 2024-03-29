@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -50,14 +51,23 @@ public class Storage {
     }
 
     public void findGood(String name) {
-        ArrayList<Good> found = new ArrayList<>();
+        Good found = null;
         for (Group group: groups) {
-            found.addAll(group.findGood(name));
+            found = group.findGood(name);
         }
-        if (found.isEmpty()) {                                  //Change to print in UI
-            System.out.println("There are no goods found");
+        if (found != null) {
+            System.out.println(found);
         } else {
-            found.forEach(System.out::println);        //Change to print in UI
+            System.out.println("No goods were found");
         }
     }
+
+//    public void updateFiles() {
+//        StringBuilder text = new StringBuilder();
+//        for (Group group: groups) {
+//            for (Good good: group.getGoods()) {
+//
+//            }
+//        }
+//    }
 }
