@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Group {
-    private Good[] goods;
+    private ArrayList<Good> goods;
     private String name;
 
     /**
@@ -10,6 +11,7 @@ public class Group {
      */
     public Group(String name) {
         this.name = name;
+        goods = new ArrayList<>(2);
     }
 
     /**
@@ -17,7 +19,7 @@ public class Group {
      * @param name of a group
      * @param goods array of goods
      */
-    public Group(String name, Good[] goods) {
+    public Group(String name, ArrayList<Good> goods) {
         this.name = name;
         this.goods = goods;
     }
@@ -28,7 +30,7 @@ public class Group {
     public void setName(String name) {
         this.name = name;
     }
-    public Good[] getGoods() {
+    public ArrayList<Good> getGoods() {
         return goods;
     }
 
@@ -41,11 +43,10 @@ public class Group {
     }
 
     public void addGood(Good good) {
-        goods = Arrays.copyOf(goods, goods.length + 1);
-        goods[goods.length - 1] = good;
+        goods.add(good);
     }
-    public void deleteGood() {
-
+    public void deleteGood(Good good) {
+        goods.remove(good);
     }
     public void changeGood() {
 
@@ -62,8 +63,18 @@ public class Group {
         return sum;
     }
 
+    public ArrayList<Good> findGood(String name) {
+        ArrayList<Good> found = new ArrayList<>();
+        for (Good good: goods) {
+            if (good.getName().equals(name)) {
+                found.add(good);
+            }
+        }
+        return found;
+    }
+
     @Override
     public String toString() {
-        return name + " containing " + goods.length + " goods";
+        return name + " containing " + goods.size() + " goods";
     }
 }
