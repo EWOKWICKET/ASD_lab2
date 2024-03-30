@@ -11,42 +11,98 @@ public class EditGroupUI extends JFrame implements ActionListener {
     JButton back;
 
     public EditGroupUI() {
-        super("Storage DB");
-        this.setSize(700, 700);
-        this.setLayout(new GridLayout(4, 1));
+        super("Робота з групами");
+        this.setSize(700, 500);
+        this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        ImageIcon icon=new ImageIcon("lab2/Images/wareHouseIcon.png");
+        this.setIconImage(icon.getImage());
 
-        setAllButtons();
+        setWindow();
+
 
         this.setVisible(true);
-        this.setLocationRelativeTo(null);
+
     }
 
-    private void setAllButtons() {
-        addNewGroup = new JButton("Add new group");
-        addNewGroup.addActionListener(this);
+    private void setWindow() {
+        //create upper part label with picture
+        addUpperPart();
+        //create central part with buttons to deal with product
+        addCentralPart();
+        //create  lower part with back button
+        addLowerPart();
 
+    }
 
-        removeGroup = new JButton("Remove group");
-        removeGroup.addActionListener(this);
+    private void addUpperPart() {
+        JPanel upperPart=new JPanel(new BorderLayout());
+        upperPart.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
+        ImageIcon productPicture = new ImageIcon("lab2/Images/workWithGroup.jpg");//add picture
+        JLabel productLabel = new JLabel(); // Create a JLabel to display the image
+        productLabel.setIcon(productPicture);
+        productLabel.setHorizontalAlignment(JLabel.CENTER);
+        productLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        upperPart.add(productLabel, "West");
 
-        changeGroup = new JButton("Change group");
-        changeGroup.addActionListener(this);
+        JLabel workWithProductLabel = new JLabel("Робота з групами"); // Create a JLabel to display the name
+        workWithProductLabel.setHorizontalAlignment(JLabel.CENTER);
+        workWithProductLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        workWithProductLabel.setFont(new Font("Default", Font.BOLD, 17));
+        upperPart.add(workWithProductLabel, "Center");
 
-        back = new JButton("Back");
-        back.addActionListener(this);
+        this.add(upperPart, "North");
+    }
 
-        this.add(addNewGroup);
-        this.add(removeGroup);
-        this.add(changeGroup);
-        this.add(back);
+    private void addCentralPart(){
+        JPanel centralPart=new JPanel(new GridLayout(0,1));
+        centralPart.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 
+        JPanel centralLeft=new JPanel(new GridLayout(3,0));
+        addNewGroup = new JButton();
+        createButtonWithAndAddToPanel(addNewGroup,"Додати групу",centralLeft);
+
+        removeGroup = new JButton();
+        createButtonWithAndAddToPanel(removeGroup,"Видалити групу",centralLeft);
+
+        changeGroup = new JButton();
+        createButtonWithAndAddToPanel(changeGroup,"Редагувати групу",centralLeft);
+
+        centralPart.add(centralLeft);
+        this.add(centralPart,"Center");
+    }
+    private void addLowerPart(){
+        JPanel lowerPanel=new JPanel(new FlowLayout());
+        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
+        back = new JButton();
+        createButtonWithAndAddToPanel(back,"Повернутися назад",lowerPanel);
+    lowerPanel.setBackground(Color.GRAY);
+        this.add(lowerPanel,"South");
     }
 
     public void setMainMenu(MainMenu menu) {
         this.menu = menu;
     }
 
+
+    private void createButtonWithAndAddToPanel(JButton button,String buttonLabel, JPanel originPanel){
+        JPanel buttonPanel=new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        if(!button.equals(back)){
+            buttonPanel.setBackground(Color.LIGHT_GRAY);
+        }
+        else{
+            buttonPanel.setBackground(Color.GRAY);
+        }
+        button.setText(buttonLabel);
+        button.setHorizontalAlignment(JButton.CENTER);
+        button.addActionListener(this);
+        button.setPreferredSize(new Dimension(220,70));
+        button.setFont(new Font("Default", Font.BOLD, 17));
+        buttonPanel.add(button);
+        originPanel.add(buttonPanel);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
