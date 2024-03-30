@@ -8,6 +8,7 @@ public class MainMenu extends JFrame implements ActionListener {
     JButton workWithGroups;
     JButton statistics;
     JButton saveData;
+    JButton search;
     JButton closeProgram;
     EditProductUI prodUI;
     EditGroupUI groupUI;
@@ -65,7 +66,7 @@ public class MainMenu extends JFrame implements ActionListener {
     }
     private void setAllButtons(JPanel menuPanel) {
         JPanel centerButtonPanel=new JPanel();
-        centerButtonPanel.setLayout(new GridLayout(3,1));
+        centerButtonPanel.setLayout(new GridLayout(4,1));
 
         JPanel workWithGoodsPanel=new JPanel();
         workWithGoodsPanel.setLayout(new FlowLayout());
@@ -91,9 +92,18 @@ public class MainMenu extends JFrame implements ActionListener {
         statistics.setFont(new Font("Default", Font.BOLD, 17));
         statisticsPanel.add(statistics);
 
+        JPanel searchPanel=new JPanel();
+        searchPanel.setLayout(new FlowLayout());
+        search = new JButton("Пошук товарів");
+        search.addActionListener(this);
+        search.setPreferredSize(new Dimension(220,70));
+        search.setFont(new Font("Default", Font.BOLD, 17));
+        searchPanel.add(search);
+
         centerButtonPanel.add(workWithGoodsPanel, "North");
         centerButtonPanel.add(workWithGroupsPanel, "Center");
         centerButtonPanel.add(statisticsPanel, "South");
+        centerButtonPanel.add(searchPanel, "North");
         menuPanel.add(centerButtonPanel);
 
         JPanel lowButtonPanel=new JPanel();
@@ -136,6 +146,11 @@ public class MainMenu extends JFrame implements ActionListener {
             groupUI.setVisible(true);
         } else if(e.getSource().equals(statistics)){
             statUI.setVisible(true);
+        } else if (e.getSource().equals(search)) {
+            //add searchUI
+            JOptionPane.showMessageDialog(null, "Іконка пошуку.", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+            MainMenu temp=this;
+            temp.setVisible(true);
         } else if (e.getSource().equals(saveData)) {
             Storage.updateFiles();
             JOptionPane.showMessageDialog(null, "Дані успішно збережено.", "Успіх", JOptionPane.INFORMATION_MESSAGE);
