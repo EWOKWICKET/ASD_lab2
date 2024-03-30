@@ -137,7 +137,7 @@ public class MainMenu extends JFrame implements ActionListener {
         } else if(e.getSource().equals(statistics)){
             statUI.setVisible(true);
         } else if (e.getSource().equals(saveData)) {
-            //method to save data in file
+            Storage.updateFiles();
             JOptionPane.showMessageDialog(null, "Дані успішно збережено.", "Успіх", JOptionPane.INFORMATION_MESSAGE);
             MainMenu temp=this;
             temp.setVisible(true);

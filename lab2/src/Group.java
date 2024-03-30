@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+
+import static java.util.Comparator.comparing;
 
 public class Group {
     private ArrayList<Good> goods;
@@ -22,6 +23,7 @@ public class Group {
     public Group(String name, ArrayList<Good> goods) {
         this.name = name;
         this.goods = goods;
+        sortGoods();
     }
 
     public String getName() {
@@ -31,6 +33,7 @@ public class Group {
         this.name = name;
     }
     public ArrayList<Good> getGoods() {
+        sortGoods();
         return goods;
     }
 
@@ -49,7 +52,6 @@ public class Group {
         goods.remove(good);
     }
     public void changeGood() {
-
     }
 
     /**
@@ -63,13 +65,18 @@ public class Group {
         return sum;
     }
 
-    public Good findGood(String name) {
+    public ArrayList<Good> findGood(String name) {
+        ArrayList<Good> found = new ArrayList<>();
         for (Good good: goods) {
-            if (good.getName().equals(name)) {
-                return good;
+            if (good.getName().matches(name + "(\\w*\\s*){3}")) {
+                found.add(good);
             }
         }
-        return null;
+        return found;
+    }
+
+    private void sortGoods() {
+        goods.sort(comparing(Good::getName));
     }
 
     @Override

@@ -4,8 +4,10 @@ public class Good {
     private String manufacturer;
     private int amount;
     private float price;
+    private String group;
 
-    public Good(String name, String description, String manufacturer, int amount, float price) {
+    public Good(String group, String name, String description, String manufacturer, int amount, float price) {
+        this.group = group;
         this.name = name;
         this.description = description;
         this.manufacturer = manufacturer;
@@ -49,6 +51,11 @@ public class Good {
     }
     public void reduceAmount(int amount) {
         this.amount -= amount;
+    }
+
+    //TEST
+    public String getInfo() {
+        return group + " | " + name + " | " + description + " | " + manufacturer + " | " + amount + " | " + price;
     }
 
     @Override
