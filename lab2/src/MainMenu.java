@@ -10,8 +10,8 @@ public class MainMenu extends JFrame implements ActionListener {
     JButton saveData;
     JButton search;
     JButton closeProgram;
-    EditProductUI prodUI;
-    EditGroupUI groupUI;
+    WorkWithProductUI prodUI;
+    WorkWithGroupUI groupUI;
     StatisticsUI statUI;
     JFrame mainFrame;
 
@@ -125,11 +125,11 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     private void setWindows() {
-        prodUI = new EditProductUI();
+        prodUI = new WorkWithProductUI();
         prodUI.setVisible(false);
         prodUI.setMainMenu(this);
 
-        groupUI = new EditGroupUI();
+        groupUI = new WorkWithGroupUI();
         groupUI.setVisible(false);
         groupUI.setMainMenu(this);
 
