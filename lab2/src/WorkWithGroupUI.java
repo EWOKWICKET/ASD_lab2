@@ -3,14 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditGroupUI extends JFrame implements ActionListener {
+public class WorkWithGroupUI extends JFrame implements ActionListener {
     MainMenu menu;
     JButton addNewGroup;
     JButton removeGroup;
     JButton changeGroup;
     JButton back;
 
-    public EditGroupUI() {
+    public WorkWithGroupUI() {
         super("Робота з групами");
         this.setSize(700, 500);
         this.setLayout(new BorderLayout());

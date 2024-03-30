@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditProductUI extends JFrame implements ActionListener {
+public class WorkWithProductUI extends JFrame implements ActionListener {
     MainMenu menu;
     JButton addNewProduct;
     JButton removeProduct;
@@ -12,7 +12,7 @@ public class EditProductUI extends JFrame implements ActionListener {
     JButton reduceAmount;
     JButton back;
 
-    public EditProductUI() {
+    public WorkWithProductUI() {
         super("Робота з товарами");
         this.setSize(700, 500);
         this.setLayout(new BorderLayout());
