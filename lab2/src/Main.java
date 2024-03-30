@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Main {
     private static Storage storage;
     private static MainMenu mainMenu;

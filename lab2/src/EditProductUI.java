@@ -61,7 +61,7 @@ public class EditProductUI extends JFrame implements ActionListener {
 
         JPanel centralLeft=new JPanel(new GridLayout(3,0));
         addNewProduct = new JButton();
-        createButtonWithAndAddToPanel(addNewProduct,"Додати товар",centralLeft);
+        createButtonWithAndAddToPanel(addNewProduct,"Додати новий товар",centralLeft);
 
         removeProduct = new JButton();
         createButtonWithAndAddToPanel(removeProduct,"Видалити товар",centralLeft);

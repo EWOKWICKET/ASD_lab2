@@ -61,17 +61,18 @@ public class StatisticsUI extends JFrame implements ActionListener {
         centralPart.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 
         JPanel centralLeft=new JPanel(new GridLayout(4,0));
-        showAllGroupGoods = new JButton();
-        createButtonWithAndAddToPanel(showAllGroupGoods,"Вивід усіх товарів по групі з інформацією",centralLeft);
 
-        showGroupPrice = new JButton();
-        createButtonWithAndAddToPanel(showGroupPrice,"Загальна вартість товарів у групі товарів",centralLeft);
+        showAllStorageGoods = new JButton();
+        createButtonWithAndAddToPanel(showAllStorageGoods,"Вивід усіх товарів",centralLeft);
+
+        showAllGroupGoods = new JButton();
+        createButtonWithAndAddToPanel(showAllGroupGoods,"Вивід усіх товарів по групі",centralLeft);
 
         showStoragePrice = new JButton();
         createButtonWithAndAddToPanel(showStoragePrice,"Загальна вартість товарів на складі",centralLeft);
 
-        showAllStorageGoods = new JButton();
-        createButtonWithAndAddToPanel(showAllStorageGoods,"Вивід усіх товарів інформацією по складу",centralLeft);
+        showGroupPrice = new JButton();
+        createButtonWithAndAddToPanel(showGroupPrice,"Загальна вартість товарів у групі товарів",centralLeft);
 
         centralPart.add(centralLeft);
         this.add(centralPart,"Center");
