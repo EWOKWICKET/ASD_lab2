@@ -20,7 +20,7 @@ public class MainMenu extends JFrame implements ActionListener {
         this.setSize(700, 500);
         this.setLayout(new GridLayout(1, 2));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ImageIcon icon=new ImageIcon("lab2/wareHouseIcon.png");
+        ImageIcon icon=new ImageIcon("lab2/Images/wareHouseIcon.png");
         this.setIconImage(icon.getImage());
         init();
         this.setVisible(true);
@@ -36,7 +36,7 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     private void addPhoto() {
-        ImageIcon wareHousePicture = new ImageIcon("lab2/WareHouse.png");
+        ImageIcon wareHousePicture = new ImageIcon("lab2/Images/WareHouse.png");
         // Create a JLabel to display the image
         JLabel wareHouseLabel = new JLabel();
         wareHouseLabel.setIcon(wareHousePicture);
