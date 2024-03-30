@@ -12,39 +12,77 @@ public class StatisticsUI extends JFrame implements ActionListener {
     JButton back;
 
     public StatisticsUI() {
-        super("Storage DB");
-        this.setSize(700, 700);
-        this.setLayout(new GridLayout(5, 1));
+        super("Статистика");
+        this.setSize(700, 500);
+        this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        ImageIcon icon=new ImageIcon("lab2/Images/wareHouseIcon.png");
+        this.setIconImage(icon.getImage());
 
-        setAllButtons();
+        setWindow();
+
 
         this.setVisible(true);
-        this.setLocationRelativeTo(null);
+
     }
 
-    private void setAllButtons() {
-        showAllStorageGoods = new JButton("Show all storage goods");
-        showAllStorageGoods.addActionListener(this);
+    private void setWindow() {
+        //create upper part label with picture
+        addUpperPart();
+        //create central part with buttons to deal with product
+        addCentralPart();
+        //create  lower part with back button
+        addLowerPart();
+    }
 
+    private void addUpperPart() {
+        JPanel upperPart=new JPanel(new BorderLayout());
+        upperPart.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
+        ImageIcon productPicture = new ImageIcon("lab2/Images/stonks.jpg");//add picture
 
-        showAllGroupGoods = new JButton("Show all group goods");
-        showAllGroupGoods.addActionListener(this);
+        JLabel productLabel = new JLabel(); // Create a JLabel to display the image
+        productLabel.setIcon(productPicture);
+        productLabel.setHorizontalAlignment(JLabel.CENTER);
+        productLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        upperPart.add(productLabel, "West");
 
-        showStoragePrice = new JButton("Show storage price");
-        showStoragePrice.addActionListener(this);
+        JLabel workWithProductLabel = new JLabel("Статистика"); // Create a JLabel to display the name
+        workWithProductLabel.setHorizontalAlignment(JLabel.CENTER);
+        workWithProductLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        workWithProductLabel.setFont(new Font("Default", Font.BOLD, 17));
+        upperPart.add(workWithProductLabel, "Center");
 
-        showGroupPrice = new JButton("Show group price");
-        showGroupPrice.addActionListener(this);
+        this.add(upperPart, "North");
+    }
 
-        back = new JButton("Back");
-        back.addActionListener(this);
+    private void addCentralPart(){
+        JPanel centralPart=new JPanel(new GridLayout(0,1));
+        centralPart.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 
-        this.add(showAllStorageGoods);
-        this.add(showAllGroupGoods);
-        this.add(showStoragePrice);
-        this.add(showGroupPrice);
-        this.add(back);
+        JPanel centralLeft=new JPanel(new GridLayout(4,0));
+        showAllGroupGoods = new JButton();
+        createButtonWithAndAddToPanel(showAllGroupGoods,"Вивід усіх товарів по групі з інформацією",centralLeft);
+
+        showGroupPrice = new JButton();
+        createButtonWithAndAddToPanel(showGroupPrice,"Загальна вартість товарів у групі товарів",centralLeft);
+
+        showStoragePrice = new JButton();
+        createButtonWithAndAddToPanel(showStoragePrice,"Загальна вартість товарів на складі",centralLeft);
+
+        showAllStorageGoods = new JButton();
+        createButtonWithAndAddToPanel(showAllStorageGoods,"Вивід усіх товарів інформацією по складу",centralLeft);
+
+        centralPart.add(centralLeft);
+        this.add(centralPart,"Center");
+    }
+    private void addLowerPart(){
+        JPanel lowerPanel=new JPanel(new FlowLayout());
+        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
+        back = new JButton();
+        createButtonWithAndAddToPanel(back,"Повернутися назад",lowerPanel);
+        lowerPanel.setBackground(Color.GRAY);
+        this.add(lowerPanel,"South");
     }
 
     public void setMainMenu(MainMenu menu) {
@@ -52,6 +90,25 @@ public class StatisticsUI extends JFrame implements ActionListener {
     }
 
 
+    private void createButtonWithAndAddToPanel(JButton button,String buttonLabel, JPanel originPanel){
+        JPanel buttonPanel=new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        if(!button.equals(back)){
+            buttonPanel.setBackground(Color.LIGHT_GRAY);
+            button.setPreferredSize(new Dimension(400,55));
+        }
+        else{
+            buttonPanel.setBackground(Color.GRAY);
+            button.setPreferredSize(new Dimension(220,60));
+        }
+        button.setText(buttonLabel);
+        button.setHorizontalAlignment(JButton.CENTER);
+        button.addActionListener(this);
+
+        button.setFont(new Font("Default", Font.BOLD, 17));
+        buttonPanel.add(button);
+        originPanel.add(buttonPanel);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(showAllStorageGoods)) {
