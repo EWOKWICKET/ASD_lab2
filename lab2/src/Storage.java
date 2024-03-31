@@ -125,4 +125,8 @@ public class Storage {
     private void sortGroups() {
         groups.sort(comparing(Group::getName));
     }
+
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
 }
