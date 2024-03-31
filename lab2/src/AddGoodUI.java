@@ -182,14 +182,21 @@ public class AddGoodUI extends JFrame implements ActionListener {
         this.setVisible(false);
         if (e.getSource().equals(createProduct)) {
 
-            if (storage.findGood(productName.getText()).isEmpty() || !storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
-                int groupNumb = groups.getSelectedIndex();
-                Group tempGr = groupsList.get(groupNumb);
-                tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), (Integer) price.getValue()));
-                JOptionPane.showMessageDialog(null, "Товар додано", "Успіх", JOptionPane.INFORMATION_MESSAGE);
-                this.setVisible(true);
+            if (storage.findGood(productName.getText()).isEmpty() ||
+                    !storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
+                String text=productName.getText();
+                if(!text.isBlank()) {
+                    int groupNumb = groups.getSelectedIndex();
+                    Group tempGr = groupsList.get(groupNumb);
+                    tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), (Integer) price.getValue()));
+                    JOptionPane.showMessageDialog(null, "Товар додано", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Не можна створити товар з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
+                    this.setVisible(true);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Така назва товару вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Така назва товару вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
                 this.setVisible(true);
             }
         } else {
