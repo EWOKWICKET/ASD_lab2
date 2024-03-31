@@ -22,7 +22,6 @@ public class WorkWithProductUI extends JFrame implements ActionListener {
         this.setIconImage(icon.getImage());
 
         setWindow();
-
         this.setVisible(true);
 
     }
@@ -112,9 +111,16 @@ public class WorkWithProductUI extends JFrame implements ActionListener {
         buttonPanel.add(button);
         originPanel.add(buttonPanel);
     }
+    public void returned() {
+        this.setVisible(true);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
+        this.setVisible(false);
         if (e.getSource().equals(addNewProduct)) {
+           AddGoodUI addGoodUI=new AddGoodUI();
+            addGoodUI.setWorkWithProductUI(this);
+            addGoodUI.setVisible(true);
             System.out.println("Adding");
         } else if (e.getSource().equals(removeProduct)) {
             System.out.println("Removing");
