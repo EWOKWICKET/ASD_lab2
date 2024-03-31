@@ -5,10 +5,11 @@ import java.util.Arrays;
 import static java.util.Comparator.comparing;
 
 public class Storage {
+    private static Storage instance;
     private static ArrayList<Group> groups = new ArrayList<>(3);
     private static BufferedWriter bw;
 
-    public Storage() {
+    private Storage() {
         groups.add(new Group("T1"));
         groups.add(new Group("T2"));
         groups.add(new Group("T3"));
@@ -20,6 +21,15 @@ public class Storage {
         groups.get(2).addGood(new Good("T3", "jrtwre", "fwe", "me", 10, 25));
         groups.get(2).addGood(new Good("T3", "ewgew", "fwe", "me", 10, 25));
         sortGroups();
+    }
+
+    public static Storage getInstance() {
+        // Якщо екземпляр ще не існує, створюємо його
+        if (instance == null) {
+            instance = new Storage();
+        }
+        // Повертаємо єдиний екземпляр класу
+        return instance;
     }
 
     public void addGroup(Group group) {
