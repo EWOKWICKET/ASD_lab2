@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StatisticsUI extends JFrame implements ActionListener {
+    OutputUI output;
+    Storage storage;
     MainMenu menu;
     JButton showAllStorageGoods;
     JButton showAllGroupGoods;
@@ -17,14 +19,14 @@ public class StatisticsUI extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        ImageIcon icon=new ImageIcon("lab2/Images/wareHouseIcon.png");
-        this.setIconImage(icon.getImage());
+        this.setIconImage(new ImageIcon("lab2/Images/wareHouseIcon.png").getImage());
 
         setWindow();
 
+        this.setVisible(false);
 
-        this.setVisible(true);
-
+        storage = Storage.getInstance();
+        output = OutputUI.getInstance();
     }
 
     private void setWindow() {
@@ -110,14 +112,20 @@ public class StatisticsUI extends JFrame implements ActionListener {
         buttonPanel.add(button);
         originPanel.add(buttonPanel);
     }
+
+    public void returned() {
+        this.setVisible(true);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(showAllStorageGoods)) {
-            System.out.println("Showing storage goods");
+            this.setVisible(false);
+            output.setText(storage.getAllStorageGoods());
         } else if (e.getSource().equals(showAllGroupGoods)) {
             System.out.println("Showing group goods");
         } else if (e.getSource().equals(showStoragePrice)) {
-            System.out.println("Showing storage price");
+            this.setVisible(false);
+            output.setText(storage.getStoragePrice());
         } else if (e.getSource().equals(showGroupPrice)){
             System.out.println("Showing group price");
         } else {

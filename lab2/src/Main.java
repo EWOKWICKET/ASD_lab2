@@ -4,6 +4,5 @@
     public static void main(String[] args) {
         storage = Storage.getInstance();
         mainMenu = new MainMenu();
-        storage.getAllStorageGoods();
     }
 }

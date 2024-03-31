@@ -13,6 +13,7 @@ public class MainMenu extends JFrame implements ActionListener {
     WorkWithProductUI prodUI;
     WorkWithGroupUI groupUI;
     StatisticsUI statUI;
+    OutputUI outputUI;
     JFrame mainFrame;
 
     public MainMenu() {
@@ -20,8 +21,7 @@ public class MainMenu extends JFrame implements ActionListener {
         this.setSize(700, 500);
         this.setLayout(new GridLayout(1, 2));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ImageIcon icon=new ImageIcon("lab2/Images/wareHouseIcon.png");
-        this.setIconImage(icon.getImage());
+        this.setIconImage(new ImageIcon("lab2/Images/wareHouseIcon.png").getImage());
         init();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -126,16 +126,17 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private void setWindows() {
         prodUI = new WorkWithProductUI();
-        prodUI.setVisible(false);
         prodUI.setMainMenu(this);
 
         groupUI = new WorkWithGroupUI();
-        groupUI.setVisible(false);
         groupUI.setMainMenu(this);
 
         statUI = new StatisticsUI();
-        statUI.setVisible(false);
         statUI.setMainMenu(this);
+
+        outputUI = OutputUI.getInstance();
+        outputUI.setStatisticsUI(statUI);
+        outputUI.setMainMenu(this);
     }
     @Override
     public void actionPerformed(ActionEvent e) {

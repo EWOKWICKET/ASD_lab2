@@ -48,21 +48,27 @@ public class Storage {
     /**
      * @return price of all goods on storage
      */
-    public float getStoragePrice() {
+    public String getStoragePrice() {
+        StringBuilder text = new StringBuilder();
         float sum = 0;
+        int amount = 0;
         for (Group group : groups) {
             sum += group.getGroupPrice();
+            amount += group.getGoods().size();
         }
-        return sum;
+        text.append("Кількість товарів на складі: " + amount + "\nЦіна товарів: " + sum);
+        return text.toString();
     }
 
     /**
      * Prints all gods on storage
      */
-    public void getAllStorageGoods() {
+    public String getAllStorageGoods() {
+        StringBuilder text = new StringBuilder();
         for (Group group : groups) {
-            group.getAllGroupGoods();
+            text.append(group.getAllGroupGoods());
         }
+        return text.toString();
     }
 
     /**

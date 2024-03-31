@@ -18,11 +18,10 @@ public class WorkWithProductUI extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        ImageIcon icon=new ImageIcon("lab2/Images/wareHouseIcon.png");
-        this.setIconImage(icon.getImage());
+        this.setIconImage(new ImageIcon("lab2/Images/wareHouseIcon.png").getImage());
 
         setWindow();
-        this.setVisible(true);
+        this.setVisible(false);
 
     }
 

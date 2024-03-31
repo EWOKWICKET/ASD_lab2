@@ -38,11 +38,13 @@ public class Group {
     }
 
     /**Prints all goods of group*/
-    public void getAllGroupGoods() {
-        System.out.println("Group " + name + ":");      //Change to print in UI
+    public String getAllGroupGoods() {
+        StringBuilder text = new StringBuilder();
+        text.append("Group " + name + ":\n");
         for (Good good : goods) {
-            System.out.println(good);                   //Change to print in UI
+            text.append(good + "\n");
         }
+        return text.toString();
     }
 
     public void addGood(Good good) {
