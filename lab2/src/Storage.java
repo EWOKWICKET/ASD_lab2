@@ -126,4 +126,14 @@ public class Storage {
     public ArrayList<Group> getGroups() {
         return groups;
     }
+    public void deleteGood(String name){
+        for (Group group : groups) {
+            for(Good good: group.getGoods()){
+                if(good.getName().equals(name)){
+                   group.deleteGood(good);
+                   return;
+                }
+            }
+        }
+    }
 }
