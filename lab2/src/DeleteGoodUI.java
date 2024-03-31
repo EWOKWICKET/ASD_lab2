@@ -36,7 +36,7 @@ public class DeleteGoodUI extends JFrame  implements ActionListener {
     private void addUpperPart() {
         JPanel upperPart=new JPanel(new BorderLayout());
         upperPart.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
-        ImageIcon productPicture = new ImageIcon("lab2/Images/addProduct.png");//add picture
+        ImageIcon productPicture = new ImageIcon("lab2/Images/deleteProduct.png");//add picture
         JLabel productLabel = new JLabel(); // Create a JLabel to display the image
         productLabel.setIcon(productPicture);
         productLabel.setHorizontalAlignment(JLabel.CENTER);
