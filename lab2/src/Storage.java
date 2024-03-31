@@ -70,18 +70,15 @@ public class Storage {
      *
      * @param name pattern to use for search
      */
-    public void findGood(String name) {
-        ArrayList<Good> found = new ArrayList<>();
+    public Good findGood(String name) {
         for (Group group : groups) {
-            found.addAll(group.findGood(name));
-        }
-        if (found.isEmpty()) {
-            System.out.println("No goods were found");           //change to print in UI
-        } else {
-            for (Good good : found) {
-                System.out.println(good);                        //change to print in UI
+            for(Good good: group.getGoods()){
+                if(good.getName().equals(name)){
+                    return good;
+                }
             }
         }
+        return null;
     }
 
     /**Updates information in group files*/
