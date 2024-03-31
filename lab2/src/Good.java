@@ -53,6 +53,14 @@ public class Good {
         this.amount -= amount;
     }
 
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
     //TEST
     public String getInfo() {
         return group + " | " + name + " | " + description + " | " + manufacturer + " | " + amount + " | " + price;
