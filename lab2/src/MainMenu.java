@@ -14,6 +14,7 @@ public class MainMenu extends JFrame implements ActionListener {
     WorkWithGroupUI groupUI;
     StatisticsUI statUI;
     OutputUI outputUI;
+    FindGoodUI findGoodUI;
     JFrame mainFrame;
 
     public MainMenu() {
@@ -132,12 +133,16 @@ public class MainMenu extends JFrame implements ActionListener {
         groupUI = new WorkWithGroupUI();
         groupUI.setMainMenu(this);
 
-        statUI = new StatisticsUI();
-        statUI.setMainMenu(this);
-
-        outputUI = OutputUI.getInstance();
+        outputUI = new OutputUI();
         outputUI.setStatisticsUI(statUI);
         outputUI.setMainMenu(this);
+
+        statUI = new StatisticsUI();
+        statUI.setMainMenu(this);
+        statUI.setOutputUI(outputUI);
+
+        findGoodUI = new FindGoodUI();
+        findGoodUI.setMainMenu(this);
     }
 
     @Override
@@ -150,22 +155,17 @@ public class MainMenu extends JFrame implements ActionListener {
         } else if (e.getSource().equals(statistics)) {
             statUI.setVisible(true);
         } else if (e.getSource().equals(search)) {
-            //add searchUI
-            JOptionPane.showMessageDialog(null, "Іконка пошуку.", "Успіх", JOptionPane.INFORMATION_MESSAGE);
-            MainMenu temp = this;
-            temp.setVisible(true);
+            findGoodUI.setVisible(true);
         } else if (e.getSource().equals(saveData)) {
             Storage.updateFiles();
             JOptionPane.showMessageDialog(null, "Дані успішно збережено.", "Успіх", JOptionPane.INFORMATION_MESSAGE);
-            MainMenu temp = this;
-            temp.setVisible(true);
+            returned();
         } else {
             int option = JOptionPane.showConfirmDialog(null, "Ви точно хочете закрити програму?\nНезбережені дані буде назавжди втрачено", "!!!", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 System.exit(0);
             } else {
-                MainMenu temp = this;
-                temp.setVisible(true);
+                returned();
             }
         }
     }

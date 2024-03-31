@@ -26,7 +26,6 @@ public class StatisticsUI extends JFrame implements ActionListener {
         this.setVisible(false);
 
         storage = Storage.getInstance();
-        output = OutputUI.getInstance();
     }
 
     private void setWindow() {
@@ -93,6 +92,10 @@ public class StatisticsUI extends JFrame implements ActionListener {
         this.menu = menu;
     }
 
+    public void setOutputUI(OutputUI output) {
+        this.output = output;
+        this.output.setStatisticsUI(this);
+    }
 
     private void createButtonWithAndAddToPanel(JButton button, String buttonLabel, JPanel originPanel) {
         JPanel buttonPanel = new JPanel();
