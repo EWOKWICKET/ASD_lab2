@@ -16,7 +16,7 @@ public class AddGoodUI extends JFrame  implements ActionListener {
     JButton createProduct;
     JButton back;
     public AddGoodUI(){
-        super("Робота з групами");
+        super("Додати товар");
         this.setSize(700, 500);
         this.setLayout(new BorderLayout());
       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
