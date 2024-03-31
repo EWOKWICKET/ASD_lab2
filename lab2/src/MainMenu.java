@@ -46,7 +46,7 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     private void addMenuPanel() {
-        JPanel menuPanel=new JPanel();
+        JPanel menuPanel = new JPanel();
         menuPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         menuPanel.setLayout(new BorderLayout());
         //add label
@@ -56,47 +56,48 @@ public class MainMenu extends JFrame implements ActionListener {
         this.add(menuPanel);
     }
 
-    private void addMenuLabel(JPanel menuPanel){
-        JLabel menuLabel=new JLabel("Меню");
+    private void addMenuLabel(JPanel menuPanel) {
+        JLabel menuLabel = new JLabel("Меню");
         menuLabel.setFont(new Font("Default", Font.BOLD, 50));
         menuLabel.setHorizontalAlignment(JLabel.CENTER);
-        menuLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        menuLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         menuPanel.add(menuLabel, "North");
 
     }
-    private void setAllButtons(JPanel menuPanel) {
-        JPanel centerButtonPanel=new JPanel();
-        centerButtonPanel.setLayout(new GridLayout(4,1));
 
-        JPanel workWithGoodsPanel=new JPanel();
+    private void setAllButtons(JPanel menuPanel) {
+        JPanel centerButtonPanel = new JPanel();
+        centerButtonPanel.setLayout(new GridLayout(4, 1));
+
+        JPanel workWithGoodsPanel = new JPanel();
         workWithGoodsPanel.setLayout(new FlowLayout());
         workWithGoods = new JButton("Робота з товарами");
         workWithGoods.addActionListener(this);
-        workWithGoods.setPreferredSize(new Dimension(220,70));
+        workWithGoods.setPreferredSize(new Dimension(220, 70));
         workWithGoods.setFont(new Font("Default", Font.BOLD, 17));
         workWithGoodsPanel.add(workWithGoods);
 
-        JPanel workWithGroupsPanel=new JPanel();
+        JPanel workWithGroupsPanel = new JPanel();
         workWithGroupsPanel.setLayout(new FlowLayout());
         workWithGroups = new JButton("Робота з групами");
         workWithGroups.addActionListener(this);
-        workWithGroups.setPreferredSize(new Dimension(220,70));
+        workWithGroups.setPreferredSize(new Dimension(220, 70));
         workWithGroups.setFont(new Font("Default", Font.BOLD, 17));
         workWithGroupsPanel.add(workWithGroups);
 
-        JPanel statisticsPanel=new JPanel();
+        JPanel statisticsPanel = new JPanel();
         statisticsPanel.setLayout(new FlowLayout());
         statistics = new JButton("Вивести статистику");
         statistics.addActionListener(this);
-        statistics.setPreferredSize(new Dimension(220,70));
+        statistics.setPreferredSize(new Dimension(220, 70));
         statistics.setFont(new Font("Default", Font.BOLD, 17));
         statisticsPanel.add(statistics);
 
-        JPanel searchPanel=new JPanel();
+        JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new FlowLayout());
         search = new JButton("Пошук товарів");
         search.addActionListener(this);
-        search.setPreferredSize(new Dimension(220,70));
+        search.setPreferredSize(new Dimension(220, 70));
         search.setFont(new Font("Default", Font.BOLD, 17));
         searchPanel.add(search);
 
@@ -106,20 +107,20 @@ public class MainMenu extends JFrame implements ActionListener {
         centerButtonPanel.add(searchPanel, "North");
         menuPanel.add(centerButtonPanel);
 
-        JPanel lowButtonPanel=new JPanel();
+        JPanel lowButtonPanel = new JPanel();
         lowButtonPanel.setLayout(new BorderLayout());
         saveData = new JButton("<html>Зберегти дані<br> в файл</html>");
         saveData.addActionListener(this);
-        saveData.setPreferredSize(new Dimension(160,70));
+        saveData.setPreferredSize(new Dimension(160, 70));
         saveData.setFont(new Font("Default", Font.BOLD, 16));
 
         closeProgram = new JButton("<html>Закрити<br> програму</html>");
         closeProgram.addActionListener(this);
-        closeProgram.setPreferredSize(new Dimension(160,70));
+        closeProgram.setPreferredSize(new Dimension(160, 70));
         closeProgram.setFont(new Font("Default", Font.BOLD, 16));
 
-        lowButtonPanel.add(saveData,"West");
-        lowButtonPanel.add(closeProgram,"East");
+        lowButtonPanel.add(saveData, "West");
+        lowButtonPanel.add(closeProgram, "East");
         menuPanel.add(lowButtonPanel, "South");
         setWindows();
     }
@@ -138,6 +139,7 @@ public class MainMenu extends JFrame implements ActionListener {
         outputUI.setStatisticsUI(statUI);
         outputUI.setMainMenu(this);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         this.setVisible(false);
@@ -145,26 +147,24 @@ public class MainMenu extends JFrame implements ActionListener {
             prodUI.setVisible(true);
         } else if (e.getSource().equals(workWithGroups)) {
             groupUI.setVisible(true);
-        } else if(e.getSource().equals(statistics)){
+        } else if (e.getSource().equals(statistics)) {
             statUI.setVisible(true);
         } else if (e.getSource().equals(search)) {
             //add searchUI
             JOptionPane.showMessageDialog(null, "Іконка пошуку.", "Успіх", JOptionPane.INFORMATION_MESSAGE);
-            MainMenu temp=this;
+            MainMenu temp = this;
             temp.setVisible(true);
         } else if (e.getSource().equals(saveData)) {
             Storage.updateFiles();
             JOptionPane.showMessageDialog(null, "Дані успішно збережено.", "Успіх", JOptionPane.INFORMATION_MESSAGE);
-            MainMenu temp=this;
+            MainMenu temp = this;
             temp.setVisible(true);
-        }
-        else{
-            int option=JOptionPane.showConfirmDialog(null, "Ви точно хочете закрити програму?\nНезбережені дані буде назавжди втрачено","!!!", JOptionPane.YES_NO_OPTION);
-            if(option==JOptionPane.YES_OPTION){
+        } else {
+            int option = JOptionPane.showConfirmDialog(null, "Ви точно хочете закрити програму?\nНезбережені дані буде назавжди втрачено", "!!!", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
                 System.exit(0);
-            }
-            else{
-                MainMenu temp=this;
+            } else {
+                MainMenu temp = this;
                 temp.setVisible(true);
             }
         }

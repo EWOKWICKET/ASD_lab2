@@ -3,6 +3,7 @@ import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 public class OutputUI extends JFrame implements ActionListener {
     MainMenu menu;
@@ -27,14 +28,15 @@ public class OutputUI extends JFrame implements ActionListener {
 
     public static OutputUI getInstance() {
         if (instance == null) {
-            instance  = new OutputUI();
+            instance = new OutputUI();
         }
         return instance;
     }
 
-    public void setStatisticsUI (StatisticsUI stats) {
+    public void setStatisticsUI(StatisticsUI stats) {
         this.stats = stats;
     }
+
     public void setMainMenu(MainMenu menu) {
         this.menu = menu;
     }
@@ -42,6 +44,15 @@ public class OutputUI extends JFrame implements ActionListener {
     public void setText(String text) {
         this.setVisible(true);
         output.setText(text);
+    }
+
+    public void find() {
+        this.setVisible(true);
+        setAuxFind();
+    }
+
+    private void setAuxFind() {
+
     }
 
     private void setOutput() {
@@ -52,44 +63,45 @@ public class OutputUI extends JFrame implements ActionListener {
     }
 
     private void setUpperPanel() {
-        JPanel upperPanel = new JPanel(new GridLayout(0,1));
+        JPanel upperPanel = new JPanel(new GridLayout(0, 1));
 
         setOutputTextArea();                                                           //set textArea
         scroll = new JScrollPane(output);
 
         upperPanel.add(scroll);
 
-        this.add(upperPanel,"Center");
+        this.add(upperPanel, "Center");
     }
 
     private void setOutputTextArea() {
         output = new JTextArea();
         output.setEditable(false);                                                     //blocks editing text
         output.setFont(new Font("Default", Font.PLAIN, 17));                //sets font
-        output.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));      //sets border
+        output.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));      //sets border
         output.setCaret(new DefaultCaret() {                                           //sets invisible caret
             @Override
-            public void paint(Graphics g) {}
+            public void paint(Graphics g) {
+            }
         });
     }
 
     private void setLowerPanel() {
         JPanel lowerPanel = new JPanel(new FlowLayout());
-        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
+        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         lowerPanel.setBackground(Color.GRAY);
 
         back = new JButton();
-        createButtonWithAndAddToPanel(back,"Повернутися назад",lowerPanel);
+        createButtonWithAndAddToPanel(back, "Повернутися назад", lowerPanel);
 
-        this.add(lowerPanel,"South");
+        this.add(lowerPanel, "South");
     }
 
-    private void createButtonWithAndAddToPanel(JButton button,String buttonLabel, JPanel originPanel){
-        JPanel buttonPanel=new JPanel();
+    private void createButtonWithAndAddToPanel(JButton button, String buttonLabel, JPanel originPanel) {
+        JPanel buttonPanel = new JPanel();
 
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.setBackground(Color.GRAY);
-        button.setPreferredSize(new Dimension(220,60));
+        button.setPreferredSize(new Dimension(220, 60));
         button.setText(buttonLabel);
         button.setHorizontalAlignment(JButton.CENTER);
         button.addActionListener(this);

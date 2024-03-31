@@ -31,61 +31,62 @@ public class WorkWithProductUI extends JFrame implements ActionListener {
         //create central part with buttons to deal with product
         addCentralPart();
         //create  lower part with back button
-         addLowerPart();
+        addLowerPart();
 
     }
 
     private void addUpperPart() {
-        JPanel upperPart=new JPanel(new BorderLayout());
-        upperPart.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
+        JPanel upperPart = new JPanel(new BorderLayout());
+        upperPart.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         ImageIcon productPicture = new ImageIcon("lab2/Images/workWithProduct.jpg");//add picture
         JLabel productLabel = new JLabel(); // Create a JLabel to display the image
         productLabel.setIcon(productPicture);
         productLabel.setHorizontalAlignment(JLabel.CENTER);
-        productLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        productLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         upperPart.add(productLabel, "West");
 
         JLabel workWithProductLabel = new JLabel("Робота з продуктом"); // Create a JLabel to display the name
         workWithProductLabel.setHorizontalAlignment(JLabel.CENTER);
-        workWithProductLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+        workWithProductLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         workWithProductLabel.setFont(new Font("Default", Font.BOLD, 17));
         upperPart.add(workWithProductLabel, "Center");
 
         this.add(upperPart, "North");
     }
 
-    private void addCentralPart(){
-        JPanel centralPart=new JPanel(new GridLayout(0,2));
+    private void addCentralPart() {
+        JPanel centralPart = new JPanel(new GridLayout(0, 2));
 
-        JPanel centralLeft=new JPanel(new GridLayout(3,0));
+        JPanel centralLeft = new JPanel(new GridLayout(3, 0));
         addNewProduct = new JButton();
-        createButtonWithAndAddToPanel(addNewProduct,"Додати новий товар",centralLeft);
+        createButtonWithAndAddToPanel(addNewProduct, "Додати новий товар", centralLeft);
 
         removeProduct = new JButton();
-        createButtonWithAndAddToPanel(removeProduct,"Видалити товар",centralLeft);
+        createButtonWithAndAddToPanel(removeProduct, "Видалити товар", centralLeft);
 
         changeProduct = new JButton();
-        createButtonWithAndAddToPanel(changeProduct,"Редагувати товар",centralLeft);
+        createButtonWithAndAddToPanel(changeProduct, "Редагувати товар", centralLeft);
 
-        JPanel centralRight=new JPanel(new GridLayout(2,0));
+        JPanel centralRight = new JPanel(new GridLayout(2, 0));
         addAmount = new JButton();
-        createButtonWithAndAddToPanel(addAmount,"Додати кількість",centralRight);
+        createButtonWithAndAddToPanel(addAmount, "Додати кількість", centralRight);
 
         reduceAmount = new JButton();
-        createButtonWithAndAddToPanel(reduceAmount,"Зменшити кількість",centralRight);
+        createButtonWithAndAddToPanel(reduceAmount, "Зменшити кількість", centralRight);
 
         centralPart.add(centralLeft);
         centralPart.add(centralRight);
-        this.add(centralPart,"Center");
+        this.add(centralPart, "Center");
     }
-    private void addLowerPart(){
-        JPanel lowerPanel=new JPanel(new FlowLayout());
-        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
+
+    private void addLowerPart() {
+        JPanel lowerPanel = new JPanel(new FlowLayout());
+        lowerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         lowerPanel.setBackground(Color.GRAY);
         back = new JButton();
-        createButtonWithAndAddToPanel(back,"Повернутися назад",lowerPanel);
+        createButtonWithAndAddToPanel(back, "Повернутися назад", lowerPanel);
 
-        this.add(lowerPanel,"South");
+        this.add(lowerPanel, "South");
     }
 
     public void setMainMenu(MainMenu menu) {
@@ -93,36 +94,37 @@ public class WorkWithProductUI extends JFrame implements ActionListener {
     }
 
 
-    private void createButtonWithAndAddToPanel(JButton button,String buttonLabel, JPanel originPanel){
-        JPanel buttonPanel=new JPanel();
+    private void createButtonWithAndAddToPanel(JButton button, String buttonLabel, JPanel originPanel) {
+        JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-        if(!button.equals(back)){
+        if (!button.equals(back)) {
             buttonPanel.setBackground(Color.LIGHT_GRAY);
-        }
-        else{
+        } else {
             buttonPanel.setBackground(Color.GRAY);
         }
         button.setText(buttonLabel);
         button.setHorizontalAlignment(JButton.CENTER);
         button.addActionListener(this);
-        button.setPreferredSize(new Dimension(220,70));
+        button.setPreferredSize(new Dimension(220, 70));
         button.setFont(new Font("Default", Font.BOLD, 17));
         buttonPanel.add(button);
         originPanel.add(buttonPanel);
     }
+
     public void returned() {
         this.setVisible(true);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         this.setVisible(false);
         if (e.getSource().equals(addNewProduct)) {
-           AddGoodUI addGoodUI=new AddGoodUI();
+            AddGoodUI addGoodUI = new AddGoodUI();
             addGoodUI.setWorkWithProductUI(this);
             addGoodUI.setVisible(true);
             System.out.println("Adding");
         } else if (e.getSource().equals(removeProduct)) {
-            DeleteGoodUI delGoodUI=new DeleteGoodUI();
+            DeleteGoodUI delGoodUI = new DeleteGoodUI();
             delGoodUI.setWorkWithProductUI(this);
             delGoodUI.setVisible(true);
             System.out.println("Removing");
@@ -130,7 +132,7 @@ public class WorkWithProductUI extends JFrame implements ActionListener {
             System.out.println("Changing");
         } else if (e.getSource().equals(addAmount)) {
             System.out.println("Adding amount");
-        } else if (e.getSource().equals(reduceAmount)){
+        } else if (e.getSource().equals(reduceAmount)) {
             System.out.println("Reducing amount");
         } else {
             this.setVisible(false);

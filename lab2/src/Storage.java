@@ -14,6 +14,7 @@ public class Storage {
         groups.add(new Group("T2"));
         groups.add(new Group("T3"));
         groups.get(0).addGood(new Good("T1", "qwerty", "fwe", "me", 10, 25));
+        groups.get(0).addGood(new Good("T1", "qwertyqefw", "fwe", "me", 10, 25));
         groups.get(0).addGood(new Good("T1", "qwery", "fwe", "me", 10, 25));
         groups.get(1).addGood(new Good("T2", "quarry", "fwe", "me", 10, 25));
         groups.get(1).addGood(new Good("T2", "quabrry", "fwe", "me", 10, 25));
@@ -76,18 +77,17 @@ public class Storage {
      *
      * @param name pattern to use for search
      */
-    public Good findGood(String name) {
+    public ArrayList<Good> findGood(String name) {
+        ArrayList<Good> found = new ArrayList<>();
         for (Group group : groups) {
-            for(Good good: group.getGoods()){
-                if(good.getName().equals(name)){
-                    return good;
-                }
-            }
+            found.addAll(group.findGood(name));
         }
-        return null;
+        return found;
     }
 
-    /**Updates information in group files*/
+    /**
+     * Updates information in group files
+     */
     public static void updateFiles() {
         for (Group group : groups) {
             try {
@@ -98,7 +98,9 @@ public class Storage {
         }
     }
 
-    /**Opens and updates each file
+    /**
+     * Opens and updates each file
+     *
      * @param name of a group and a file
      * @throws IOException
      */
@@ -114,7 +116,9 @@ public class Storage {
         bw.close();
     }
 
-    /**Finds group index
+    /**
+     * Finds group index
+     *
      * @param name name of a group
      * @return index of a group in list of groups
      */
@@ -132,12 +136,13 @@ public class Storage {
     public ArrayList<Group> getGroups() {
         return groups;
     }
-    public void deleteGood(String name){
+
+    public void deleteGood(String name) {
         for (Group group : groups) {
-            for(Good good: group.getGoods()){
-                if(good.getName().equals(name)){
-                   group.deleteGood(good);
-                   return;
+            for (Good good : group.getGoods()) {
+                if (good.getName().equals(name)) {
+                    group.deleteGood(good);
+                    return;
                 }
             }
         }
