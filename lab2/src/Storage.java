@@ -1,27 +1,28 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 import static java.util.Comparator.comparing;
 
 public class Storage {
     private static Storage instance;
-    private static ArrayList<Group> groups = new ArrayList<>(3);
+    private static ArrayList<Group> groups = new ArrayList<>();
     private static BufferedWriter bw;
 
     private Storage() {
-        groups.add(new Group("T1"));
-        groups.add(new Group("T2"));
-        groups.add(new Group("T3"));
-        groups.get(0).addGood(new Good("T1", "qwerty", "fwe", "me", 10, 25));
-        groups.get(0).addGood(new Good("T1", "qwertyqefw", "fwe", "me", 10, 25));
-        groups.get(0).addGood(new Good("T1", "qwery", "fwe", "me", 10, 25));
-        groups.get(1).addGood(new Good("T2", "quarry", "fwe", "me", 10, 25));
-        groups.get(1).addGood(new Good("T2", "quabrry", "fwe", "me", 10, 25));
-        groups.get(1).addGood(new Good("T2", "qq", "fwe", "me", 10, 25));
-        groups.get(2).addGood(new Good("T3", "jrtwre", "fwe", "me", 10, 25));
-        groups.get(2).addGood(new Good("T3", "ewgew", "fwe", "me", 10, 25));
-        sortGroups();
+//        groups.add(new Group("Крупи"));
+//        groups.add(new Group("T2"));
+//        groups.add(new Group("T3"));
+//        groups.get(0).addGood(new Good("Крупи", "qwerty", "fwe", "me", 10, 25));
+//        groups.get(0).addGood(new Good("Крупи", "qwertyqefw", "fwe", "me", 10, 25));
+//        groups.get(0).addGood(new Good("Крупи", "qwery", "fwe", "me", 10, 25));
+//        groups.get(1).addGood(new Good("T2", "quarry", "fwe", "me", 10, 25));
+//        groups.get(1).addGood(new Good("T2", "quabrry", "fwe", "me", 10, 25));
+//        groups.get(1).addGood(new Good("T2", "qq", "fwe", "me", 10, 25));
+//        groups.get(2).addGood(new Good("T3", "jrtwre", "fwe", "me", 10, 25));
+//        groups.get(2).addGood(new Good("T3", "ewgew", "fwe", "me", 10, 25));
+
     }
 
     public static Storage getInstance() {
@@ -111,9 +112,67 @@ public class Storage {
             System.out.println("File not found");
         }
         for (Good good : (groups.get(findGroup(name))).getGoods()) {
-            bw.write(good.toString() + "\n");
+            bw.write(good.writeInFile()+ "\n");
         }
         bw.close();
+    }
+
+    public void readFiles(){
+        File folder=new File("lab2/Groups");
+        File[] fileList=folder.listFiles();
+        for(File file:fileList){
+            readFile(file);
+        }
+        sortGroups();
+    }
+
+    private void readFile(File file) {
+        try {
+            BufferedReader br=new BufferedReader(new FileReader(file.getPath()));
+            String groupName=file.getName();
+            ArrayList<Good> goods=new ArrayList<>();
+            String goodString;
+            do{
+                goodString= br.readLine();
+                if(goodString!=null){
+                    createNewGood(goodString, goods, groupName);
+                }
+
+            }while(goodString!=null);
+            groups.add(new Group(groupName,goods));
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("Error in reading");
+        }
+    }
+
+    private void createNewGood(String goodString, ArrayList<Good> goods, String groupName) {
+        StringTokenizer st=new StringTokenizer(goodString, "|");
+
+        String name=st.nextToken();
+
+        StringTokenizer desSt=new StringTokenizer(st.nextToken(), ":");
+        String descr=desSt.nextToken();
+        descr=desSt.nextToken();
+
+        StringTokenizer mnfSt=new StringTokenizer(st.nextToken(), ":");
+        String mnf=mnfSt.nextToken();
+        mnf=mnfSt.nextToken();
+
+        StringTokenizer amountSt=new StringTokenizer(st.nextToken(), ":");
+        String amountStr=amountSt.nextToken();
+        amountStr=amountSt.nextToken();
+        int amount=Integer.parseInt(amountStr);
+
+        StringTokenizer priceSt=new StringTokenizer(st.nextToken(), ":");
+        String priceStr=priceSt.nextToken();
+        priceStr=priceSt.nextToken();
+        float price=Float.parseFloat(priceStr);
+
+        goods.add(new Good(groupName, name,descr,mnf,amount,price));
     }
 
     /**
