@@ -16,6 +16,7 @@ public class AddGoodUI extends JFrame implements ActionListener {
     ArrayList<Group> groupsList;
     JButton createProduct;
     JButton back;
+    JFrame imageFrame;
 
     public AddGoodUI() {
         super("Додати товар");
@@ -186,11 +187,36 @@ public class AddGoodUI extends JFrame implements ActionListener {
                     !storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
                 String text=productName.getText();
                 if(!text.isBlank()) {
-                    int groupNumb = groups.getSelectedIndex();
-                    Group tempGr = groupsList.get(groupNumb);
-                    tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), (Integer) price.getValue()));
-                    JOptionPane.showMessageDialog(null, "Товар додано", "Успіх", JOptionPane.INFORMATION_MESSAGE);
-                    this.setVisible(true);
+                    if(!text.equals("Окуляри")) {
+                        int groupNumb = groups.getSelectedIndex();
+                        Group tempGr = groupsList.get(groupNumb);
+                        tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), (Integer) price.getValue()));
+                        JOptionPane.showMessageDialog(null, "Товар додано", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+                        this.setVisible(true);
+                    }
+                    else{
+                        ImageIcon imageIcon = new ImageIcon("lab2/Images/estrEgg.gif");
+
+                        imageFrame = new JFrame("Easter Egg");
+                        imageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        imageFrame.setSize(700, 500);
+                        imageFrame.setLayout(new BorderLayout());
+                        imageFrame.setLocationRelativeTo(null);
+                        imageFrame.setVisible(true);
+
+                        JLabel imageLabel = new JLabel(imageIcon);
+                        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+                        imageLabel.setVerticalAlignment(JLabel.CENTER);
+
+                        imageFrame.add(imageLabel, "Center");
+                        JPanel backButton=new JPanel(new FlowLayout());
+                        backButton.setBackground(Color.GRAY);
+                        back=new JButton();
+                        createButtonWithAndAddToPanel(back, "Повернутися назад",backButton);
+
+                        imageFrame.add(backButton, "South");
+
+                    }
                 }else{
                     JOptionPane.showMessageDialog(null, "Не можна створити товар з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
                     this.setVisible(true);
@@ -200,6 +226,9 @@ public class AddGoodUI extends JFrame implements ActionListener {
                 this.setVisible(true);
             }
         } else {
+            if(imageFrame!=null){
+                imageFrame.setVisible(false);
+            }
             workWithProductUI.returned();
         }
 
