@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -90,6 +93,26 @@ public class Storage {
      * Updates information in group files
      */
     public static void updateFiles() {
+        File folder = new File("lab2/Groups");
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    file.delete();
+                }
+            }
+        }
+        folder.delete();
+        String folderPathStr = "lab2/Groups";
+
+        // Create a Path object representing the folder
+        Path folderPath = Paths.get(folderPathStr);
+        try {
+            // Create the folder/directory
+            Files.createDirectory(folderPath);
+        } catch (IOException e) {
+            System.err.println("Failed to create folder: " + e.getMessage());
+        }
         for (Group group : groups) {
             try {
                 updateFile(group.getName());
@@ -107,7 +130,7 @@ public class Storage {
      */
     private static void updateFile(String name) throws IOException {
         try {
-            bw = new BufferedWriter(new FileWriter("lab2/Groups/" + name));
+            bw = new BufferedWriter(new FileWriter("lab2/Groups/" + name+".txt"));
         } catch (IOException e) {
             System.out.println("File not found");
         }
@@ -130,6 +153,7 @@ public class Storage {
         try {
             BufferedReader br=new BufferedReader(new FileReader(file.getPath()));
             String groupName=file.getName();
+            groupName=groupName.replaceAll(".txt", "");
             ArrayList<Good> goods=new ArrayList<>();
             String goodString;
             do{
@@ -140,6 +164,7 @@ public class Storage {
 
             }while(goodString!=null);
             groups.add(new Group(groupName,goods));
+            br.close();
         }
         catch (FileNotFoundException e){
             System.out.println("File not found");
