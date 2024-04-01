@@ -40,7 +40,7 @@ public class Group {
     /**Prints all goods of group*/
     public String getAllGroupGoods() {
         StringBuilder text = new StringBuilder();
-        text.append("Group " + name + ":\n");
+        text.append("Група " + name + ":\n");
         for (Good good : goods) {
             text.append(good + "\n");
         }
