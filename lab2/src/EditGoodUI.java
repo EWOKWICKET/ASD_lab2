@@ -153,7 +153,12 @@ public class EditGoodUI extends JFrame implements ActionListener {
         JLabel label = new JLabel(labelText);
 
         labelAndTextPanel.add(label, "North");
-        spinner.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        if(spinner.equals(amount)) {
+            spinner.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        }
+        else{
+            spinner.setModel(new SpinnerNumberModel(0.1, 0.1, Integer.MAX_VALUE, 0.1));
+        }
         labelAndTextPanel.add(spinner, "Center");
 
         originPanel.add(labelAndTextPanel);
@@ -228,7 +233,7 @@ public class EditGoodUI extends JFrame implements ActionListener {
                     storage.deleteGood(prod.getName());
                     int groupNumb = groups.getSelectedIndex();
                     Group tempGr = groupsList.get(groupNumb);
-                    tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), (Integer) price.getValue()));
+                    tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(),  Float.parseFloat(Double.toString((Double) price.getValue()))));
                     JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 
                     oldProductName.setText("");
