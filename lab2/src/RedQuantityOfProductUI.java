@@ -195,7 +195,11 @@ public class RedQuantityOfProductUI extends JFrame implements ActionListener {
         if (e.getSource().equals(changeQuantityProduct)) {
             int prodNumb=products.getSelectedIndex();
             Good prod =productsList.get(prodNumb);
-            prod.setAmount(prod.getAmount()-(Integer) amount.getValue());
+            int amounts=prod.getAmount()-(Integer) amount.getValue();
+            if(amounts<0){
+                amounts=0;
+            }
+            prod.setAmount(amounts);
             JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 
             oldProductName.setText("");
