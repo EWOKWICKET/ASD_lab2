@@ -122,7 +122,7 @@ public class Storage {
      * @param name name of a group
      * @return index of a group in list of groups
      */
-    private static int findGroup(String name) {
+    public static int findGroup(String name) {
         for (Group group : groups) {
             if (group.getName().equals(name)) return groups.indexOf(group);
         }
