@@ -34,9 +34,12 @@ public class FindGoodUI extends OutputUI implements ActionListener {
                 text.append(good + "\n");
             }
             if (text.isEmpty()) {
-                text.append("No goods found");
+                text.append("Не знайдено жодного товару");
             }
-            output.setText("Found:\n" + text.toString());
+            else{
+                text.insert(0, "Знайдено:\n");
+            }
+            output.setText(text.toString());
         }
     }
 }
