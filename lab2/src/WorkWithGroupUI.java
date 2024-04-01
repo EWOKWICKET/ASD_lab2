@@ -102,10 +102,16 @@ public class WorkWithGroupUI extends JFrame implements ActionListener {
         buttonPanel.add(button);
         originPanel.add(buttonPanel);
     }
-
+    public void returned() {
+        this.setVisible(true);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
+        this.setVisible(false);
         if (e.getSource().equals(addNewGroup)) {
+            AddGroup addGr=new AddGroup();
+            addGr.setWorkWithGroupUI(this);
+            addGr.setVisible(true);
             System.out.println("Adding");
         } else if (e.getSource().equals(removeGroup)) {
             System.out.println("Removing");
