@@ -26,6 +26,7 @@ public class Group {
         sortGoods();
     }
 
+
     public String getName() {
         return name;
     }
@@ -37,7 +38,7 @@ public class Group {
         }
     }
     public ArrayList<Good> getGoods() {
-        sortGoods();
+      //  sortGoods();
         return goods;
     }
 
@@ -74,7 +75,7 @@ public class Group {
     public ArrayList<Good> findGood(String name) {
         ArrayList<Good> found = new ArrayList<>();
         for (Good good: goods) {
-            if (good.getName().matches(name + "(\\w*\\s*){3}")) {
+            if (good.getName().matches(name + "([0-9_A-Za-zА-Яа-я]*\\s*){3}")) {
                 found.add(good);
             }
         }
