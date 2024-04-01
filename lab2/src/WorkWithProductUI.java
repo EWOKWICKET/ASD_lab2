@@ -135,7 +135,13 @@ public class WorkWithProductUI extends JFrame implements ActionListener {
            // System.out.println("Changing");
         } else if (e.getSource().equals(addAmount)) {
             System.out.println("Adding amount");
+            AddQuantityOfProductUI addProd=new AddQuantityOfProductUI();
+            addProd.setWorkWithProductUI(this);
+            addProd.setVisible(true);
         } else if (e.getSource().equals(reduceAmount)) {
+            RedQuantityOfProductUI reduceProd=new RedQuantityOfProductUI();
+            reduceProd.setWorkWithProductUI(this);
+            reduceProd.setVisible(true);
             System.out.println("Reducing amount");
         } else {
             this.setVisible(false);
