@@ -2,26 +2,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class WorkWithGroupUI extends JFrame implements ActionListener {
-    MainMenu menu;
-    JButton addNewGroup;
-    JButton removeGroup;
-    JButton changeGroup;
+public class DeleteGroupUI extends JFrame implements ActionListener {
+    Storage storage;
+    WorkWithGroupUI workWithGroupUI;
+
+    ArrayList<Group> groupsList;
+    JComboBox groups;
+    JButton deleteGroup;
     JButton back;
 
-    public WorkWithGroupUI() {
-        super("Робота з групами");
+    public DeleteGroupUI() {
+        super("Видалити товар");
         this.setSize(700, 500);
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setIconImage(new ImageIcon("lab2/Images/wareHouseIcon.png").getImage());
+        ImageIcon icon = new ImageIcon("lab2/Images/wareHouseIcon.png");
+        this.setIconImage(icon.getImage());
 
+        storage = Storage.getInstance();
+        groupsList=storage.getGroups();
         setWindow();
-
-
-        this.setVisible(false);
+        this.setVisible(true);
 
     }
 
@@ -38,14 +42,14 @@ public class WorkWithGroupUI extends JFrame implements ActionListener {
     private void addUpperPart() {
         JPanel upperPart = new JPanel(new BorderLayout());
         upperPart.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
-        ImageIcon productPicture = new ImageIcon("lab2/Images/workWithGroup.jpg");//add picture
+        ImageIcon productPicture = new ImageIcon("lab2/Images/deleteProduct.png");//add picture
         JLabel productLabel = new JLabel(); // Create a JLabel to display the image
         productLabel.setIcon(productPicture);
         productLabel.setHorizontalAlignment(JLabel.CENTER);
         productLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         upperPart.add(productLabel, "West");
 
-        JLabel workWithProductLabel = new JLabel("Робота з групами"); // Create a JLabel to display the name
+        JLabel workWithProductLabel = new JLabel("Видалення групи"); // Create a JLabel to display the name
         workWithProductLabel.setHorizontalAlignment(JLabel.CENTER);
         workWithProductLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         workWithProductLabel.setFont(new Font("Default", Font.BOLD, 17));
@@ -55,21 +59,38 @@ public class WorkWithGroupUI extends JFrame implements ActionListener {
     }
 
     private void addCentralPart() {
-        JPanel centralPart = new JPanel(new GridLayout(0, 1));
+        JPanel centralPart = new JPanel(new GridLayout(0, 2));
         centralPart.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-        JPanel centralLeft = new JPanel(new GridLayout(3, 0));
-        addNewGroup = new JButton();
-        createButtonWithAndAddToPanel(addNewGroup, "Додати групу", centralLeft);
+        JPanel centralLeft = new JPanel(new GridLayout(1,0));
+        centralLeft.setBackground(Color.lightGray);
+        groups=new JComboBox();
+        createComboBoxWithLabelWithAndAddToPanel(groups, "Групи", centralLeft);
 
-        removeGroup = new JButton();
-        createButtonWithAndAddToPanel(removeGroup, "Видалити групу", centralLeft);
 
-        changeGroup = new JButton();
-        createButtonWithAndAddToPanel(changeGroup, "Редагувати групу", centralLeft);
+        JPanel centralRight = new JPanel(new GridLayout(1, 0));
+        centralRight.setBackground(Color.lightGray);
+        deleteGroup = new JButton();
+        createButtonWithAndAddToPanel(deleteGroup, "Видалити групу", centralRight);
 
         centralPart.add(centralLeft);
+        centralPart.add(centralRight);
         this.add(centralPart, "Center");
+    }
+    private void createComboBoxWithLabelWithAndAddToPanel(JComboBox comboBox, String labelText, JPanel originPanel) {
+        JPanel labelAndTextPanel = new JPanel(new BorderLayout());
+        labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        labelAndTextPanel.setBackground(Color.LIGHT_GRAY);
+        JLabel label = new JLabel(labelText);
+
+        labelAndTextPanel.add(label, "North");
+
+        for (int i = 0; i < groupsList.size(); i++) {
+            comboBox.addItem(groupsList.get(i).getName());
+        }
+        labelAndTextPanel.add(comboBox, "Center");
+
+        originPanel.add(labelAndTextPanel);
     }
 
     private void addLowerPart() {
@@ -81,15 +102,15 @@ public class WorkWithGroupUI extends JFrame implements ActionListener {
         this.add(lowerPanel, "South");
     }
 
-    public void setMainMenu(MainMenu menu) {
-        this.menu = menu;
+    public void setWorkWithGroupUI(WorkWithGroupUI workWithGroupUI) {
+        this.workWithGroupUI = workWithGroupUI;
     }
 
 
     private void createButtonWithAndAddToPanel(JButton button, String buttonLabel, JPanel originPanel) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-        if (!button.equals(back)) {
+        if (button.equals(deleteGroup)) {
             buttonPanel.setBackground(Color.LIGHT_GRAY);
         } else {
             buttonPanel.setBackground(Color.GRAY);
@@ -102,27 +123,22 @@ public class WorkWithGroupUI extends JFrame implements ActionListener {
         buttonPanel.add(button);
         originPanel.add(buttonPanel);
     }
-    public void returned() {
-        this.setVisible(true);
-    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+
         this.setVisible(false);
-        if (e.getSource().equals(addNewGroup)) {
-            AddGroupUI addGr=new AddGroupUI();
-            addGr.setWorkWithGroupUI(this);
-            addGr.setVisible(true);
-            System.out.println("Adding");
-        } else if (e.getSource().equals(removeGroup)) {
-            DeleteGroupUI delGr=new DeleteGroupUI();
-            delGr.setWorkWithGroupUI(this);
-            delGr.setVisible(true);
-            System.out.println("Removing");
-        } else if (e.getSource().equals(changeGroup)) {
-            System.out.println("Changing");
+        if (e.getSource().equals(deleteGroup)) {
+            int groupNumb=groups.getSelectedIndex();
+            Group gr=groupsList.get(groupNumb);
+            storage.deleteGroup(gr);
+            JOptionPane.showMessageDialog(null, "Групу видалено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+
+            workWithGroupUI.returned();
+
         } else {
-            this.setVisible(false);
-            menu.returned();
+            workWithGroupUI.returned();
         }
+
     }
 }
