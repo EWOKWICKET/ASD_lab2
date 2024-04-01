@@ -3,14 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddGroup extends JFrame implements ActionListener {
+public class AddGroupUI extends JFrame implements ActionListener {
     Storage storage;
     WorkWithGroupUI workWithGroupUI;
     JTextField groupName;
     JButton addGroup;
     JButton back;
 
-    public AddGroup(){
+    public AddGroupUI(){
         super("Додати групу");
         this.setSize(700, 500);
         this.setLayout(new BorderLayout());
