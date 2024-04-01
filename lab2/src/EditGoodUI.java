@@ -221,7 +221,7 @@ public class EditGoodUI extends JFrame implements ActionListener {
             int prodNumb=products.getSelectedIndex();
             Good prod =productsList.get(prodNumb);
             if (storage.findGood(productName.getText()).isEmpty() ||
-                    !storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
+                    storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
                 String text=productName.getText();
                 if(!text.isBlank()) {
 

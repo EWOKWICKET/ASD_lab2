@@ -2,11 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class DeleteGoodUI extends JFrame implements ActionListener {
     Storage storage;
     WorkWithProductUI workWithProductUI;
-    JTextField productName;
+    JTextField oldProductName;
+    String rememOldProdName;
+    ArrayList<Good> productsList;
+    JComboBox products;
     JButton deleteProduct;
     JButton back;
 
@@ -18,12 +22,35 @@ public class DeleteGoodUI extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         ImageIcon icon = new ImageIcon("lab2/Images/wareHouseIcon.png");
         this.setIconImage(icon.getImage());
-        setWindow();
-
-
-        this.setVisible(true);
 
         storage = Storage.getInstance();
+        productsList=storage.findGood("");
+        setWindow();
+
+        class listOfGoodsUpdateThread implements Runnable {
+            public void run() {
+                while (true){
+                    if(!oldProductName.getText().equals(rememOldProdName)){
+                        productsList=storage.findGood(oldProductName.getText());
+                        products.removeAllItems();
+                        for (int i = 0; i < productsList.size(); i++) {
+                            products.addItem(productsList.get(i).getName());
+                        }
+                        rememOldProdName=oldProductName.getText();
+                    }
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        System.out.println("Error");
+                    }
+                }
+            }
+        }
+        Thread updateProdList = new Thread(new listOfGoodsUpdateThread());
+        updateProdList.start();
+        this.setVisible(true);
+
     }
 
     private void setWindow() {
@@ -59,9 +86,12 @@ public class DeleteGoodUI extends JFrame implements ActionListener {
         JPanel centralPart = new JPanel(new GridLayout(0, 2));
         centralPart.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-        JPanel centralLeft = new JPanel(new BorderLayout());
-        productName = new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(productName, "Назва товару", centralLeft);
+        JPanel centralLeft = new JPanel(new GridLayout(2,0));
+        oldProductName = new JTextField();
+        createTextFiedWithLabelWithAndAddToPanel(oldProductName, "Назва товару", centralLeft);
+
+        products=new JComboBox();
+        createComboBoxWithLabelWithAndAddToPanel(products, "Товари", centralLeft);
 
 
         JPanel centralRight = new JPanel(new GridLayout(1, 0));
@@ -72,6 +102,21 @@ public class DeleteGoodUI extends JFrame implements ActionListener {
         centralPart.add(centralLeft);
         centralPart.add(centralRight);
         this.add(centralPart, "Center");
+    }
+    private void createComboBoxWithLabelWithAndAddToPanel(JComboBox comboBox, String labelText, JPanel originPanel) {
+        JPanel labelAndTextPanel = new JPanel(new BorderLayout());
+        labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        labelAndTextPanel.setBackground(Color.LIGHT_GRAY);
+        JLabel label = new JLabel(labelText);
+
+        labelAndTextPanel.add(label, "North");
+
+            for (int i = 0; i < productsList.size(); i++) {
+                comboBox.addItem(productsList.get(i).getName());
+            }
+        labelAndTextPanel.add(comboBox, "Center");
+
+        originPanel.add(labelAndTextPanel);
     }
 
     private void createTextFiedWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
@@ -122,15 +167,14 @@ public class DeleteGoodUI extends JFrame implements ActionListener {
 
         this.setVisible(false);
         if (e.getSource().equals(deleteProduct)) {
-
-            if (storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
-                storage.deleteGood(productName.getText());
+            int prodNumb=products.getSelectedIndex();
+            Good prod =productsList.get(prodNumb);
+                storage.deleteGood(prod.getName());
                 JOptionPane.showMessageDialog(null, "Товар видалено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+                oldProductName.setText("");
+                rememOldProdName="NO text";
                 workWithProductUI.returned();
-            } else {
-                JOptionPane.showMessageDialog(null, "Такого товару не існує", "Помилка", JOptionPane.ERROR_MESSAGE);
-                this.setVisible(true);
-            }
+
         } else {
             workWithProductUI.returned();
         }
