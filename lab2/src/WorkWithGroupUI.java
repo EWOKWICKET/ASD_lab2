@@ -112,14 +112,14 @@ public class WorkWithGroupUI extends JFrame implements ActionListener {
             AddGroupUI addGr=new AddGroupUI();
             addGr.setWorkWithGroupUI(this);
             addGr.setVisible(true);
-            System.out.println("Adding");
         } else if (e.getSource().equals(removeGroup)) {
             DeleteGroupUI delGr=new DeleteGroupUI();
             delGr.setWorkWithGroupUI(this);
             delGr.setVisible(true);
-            System.out.println("Removing");
         } else if (e.getSource().equals(changeGroup)) {
-            System.out.println("Changing");
+            EditGroupUI delGr=new EditGroupUI();
+            delGr.setWorkWithGroupUI(this);
+            delGr.setVisible(true);
         } else {
             this.setVisible(false);
             menu.returned();
