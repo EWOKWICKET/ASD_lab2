@@ -75,6 +75,9 @@ public class Good {
     public String getInfo() {
         return group + " | " + name + " | " + description + " | " + manufacturer + " | " + amount + " | " + price;
     }
+    public String writeInFile() {
+        return name + "|опис:" + description + "|виробник:" + manufacturer + "|кількість на складі:" + amount + "|ціна:" + price;
+    }
 
     @Override
     public String toString() {
