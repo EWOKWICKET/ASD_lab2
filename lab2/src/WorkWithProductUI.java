@@ -122,14 +122,17 @@ public class WorkWithProductUI extends JFrame implements ActionListener {
             AddGoodUI addGoodUI = new AddGoodUI();
             addGoodUI.setWorkWithProductUI(this);
             addGoodUI.setVisible(true);
-            System.out.println("Adding");
+            //System.out.println("Adding");
         } else if (e.getSource().equals(removeProduct)) {
             DeleteGoodUI delGoodUI = new DeleteGoodUI();
             delGoodUI.setWorkWithProductUI(this);
             delGoodUI.setVisible(true);
-            System.out.println("Removing");
+            //System.out.println("Removing");
         } else if (e.getSource().equals(changeProduct)) {
-            System.out.println("Changing");
+            EditGoodUI editGoodUI = new EditGoodUI();
+            editGoodUI.setWorkWithProductUI(this);
+            editGoodUI.setVisible(true);
+           // System.out.println("Changing");
         } else if (e.getSource().equals(addAmount)) {
             System.out.println("Adding amount");
         } else if (e.getSource().equals(reduceAmount)) {
