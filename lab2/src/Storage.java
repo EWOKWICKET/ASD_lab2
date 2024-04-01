@@ -134,7 +134,7 @@ public class Storage {
             String goodString;
             do{
                 goodString= br.readLine();
-                if(goodString!=null){
+                if(goodString!=null && !goodString.isBlank()){
                     createNewGood(goodString, goods, groupName);
                 }
 
