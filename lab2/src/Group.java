@@ -8,6 +8,7 @@ public class Group {
 
     /**
      * Creates a new group
+     *
      * @param name of a group
      */
     public Group(String name) {
@@ -17,7 +18,8 @@ public class Group {
 
     /**
      * Creates a new group when program starts(for initially created groups)
-     * @param name of a group
+     *
+     * @param name  of a group
      * @param goods array of goods
      */
     public Group(String name, ArrayList<Good> goods) {
@@ -26,23 +28,24 @@ public class Group {
         sortGoods();
     }
 
-
     public String getName() {
         return name;
     }
-    public void setName(String name) {
 
+    public void setName(String name) {
         this.name = name;
-        for(Good good: goods){
+        for (Good good : goods) {
             good.setGroup(name);
         }
     }
+
     public ArrayList<Good> getGoods() {
-      //  sortGoods();
         return goods;
     }
 
-    /**Prints all goods of group*/
+    /**
+     * Prints all goods of group
+     */
     public String getAllGroupGoods() {
         StringBuilder text = new StringBuilder();
         text.append("Група " + name + ":\n");
@@ -55,10 +58,9 @@ public class Group {
     public void addGood(Good good) {
         goods.add(good);
     }
+
     public void deleteGood(Good good) {
         goods.remove(good);
-    }
-    public void changeGood() {
     }
 
     /**
@@ -74,7 +76,7 @@ public class Group {
 
     public ArrayList<Good> findGood(String name) {
         ArrayList<Good> found = new ArrayList<>();
-        for (Good good: goods) {
+        for (Good good : goods) {
             if (good.getName().matches(name + "([0-9_A-Za-zА-Яа-я]*\\s*){3}")) {
                 found.add(good);
             }
@@ -82,6 +84,9 @@ public class Group {
         return found;
     }
 
+    /**
+     * sorts goods by name
+     */
     private void sortGoods() {
         goods.sort(comparing(Good::getName));
     }

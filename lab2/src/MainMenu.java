@@ -170,6 +170,9 @@ public class MainMenu extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Used by other UI classes to return to main menu
+     */
     public void returned() {
         this.setVisible(true);
     }

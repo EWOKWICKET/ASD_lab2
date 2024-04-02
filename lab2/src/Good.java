@@ -18,15 +18,12 @@ public class Good {
     public String getName() {
         return name;
     }
-
     public String getDescription() {
         return description;
     }
-
     public String getManufacturer() {
         return manufacturer;
     }
-
     public int getAmount() {
         return amount;
     }
@@ -71,10 +68,9 @@ public class Good {
         this.group = group;
     }
 
-    //TEST
-    public String getInfo() {
-        return group + " | " + name + " | " + description + " | " + manufacturer + " | " + amount + " | " + price;
-    }
+    /**
+     * @return full inforamation to write in file
+     */
     public String writeInFile() {
         return name + "|опис:" + description + "|виробник:" + manufacturer + "|кількість на складі:" + amount + "|ціна:" + price;
     }

@@ -127,14 +127,14 @@ public class StatisticsUI extends JFrame implements ActionListener {
             this.setVisible(false);
             output.setText(storage.getAllStorageGoods());
         } else if (e.getSource().equals(showAllGroupGoods)) {
-            OutputUIGroups outGr=new OutputUIGroups(0);
+            OutputUIGroups outGr = new OutputUIGroups(0);
             outGr.setStatisticsUI(this);
             outGr.setVisible(true);
         } else if (e.getSource().equals(showStoragePrice)) {
             this.setVisible(false);
             output.setText(storage.getStoragePrice());
         } else if (e.getSource().equals(showGroupPrice)) {
-            OutputUIGroups outGr=new OutputUIGroups(1);
+            OutputUIGroups outGr = new OutputUIGroups(1);
             outGr.setStatisticsUI(this);
             outGr.setVisible(true);
         } else {

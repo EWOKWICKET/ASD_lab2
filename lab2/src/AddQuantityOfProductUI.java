@@ -9,11 +9,7 @@ public class AddQuantityOfProductUI extends JFrame implements ActionListener {
     WorkWithProductUI workWithProductUI;
     JTextField oldProductName;
     String rememOldProdName;
-    JTextField productName;
-    JTextArea description;
-    JTextField manufacturer;
     JSpinner amount;
-    JSpinner price;
     JComboBox products;
     JComboBox groups;
     ArrayList<Group> groupsList;
@@ -32,18 +28,18 @@ public class AddQuantityOfProductUI extends JFrame implements ActionListener {
         this.setIconImage(icon.getImage());
 
         storage = Storage.getInstance();
-        productsList=storage.findGood("");
+        productsList = storage.findGood("");
         setWindow();
         class listOfGoodsUpdateThread implements Runnable {
             public void run() {
-                while (true){
-                    if(!oldProductName.getText().equals(rememOldProdName)){
-                        productsList=storage.findGood(oldProductName.getText());
+                while (true) {
+                    if (!oldProductName.getText().equals(rememOldProdName)) {
+                        productsList = storage.findGood(oldProductName.getText());
                         products.removeAllItems();
                         for (int i = 0; i < productsList.size(); i++) {
                             products.addItem(productsList.get(i).getName());
                         }
-                        rememOldProdName=oldProductName.getText();
+                        rememOldProdName = oldProductName.getText();
                     }
 
                     try {
@@ -99,7 +95,7 @@ public class AddQuantityOfProductUI extends JFrame implements ActionListener {
         oldProductName = new JTextField();
         createTextFiedWithLabelWithAndAddToPanel(oldProductName, "Назва товару", centralLeft);
 
-        products=new JComboBox();
+        products = new JComboBox();
         createComboBoxWithLabelWithAndAddToPanel(products, "Товари", centralLeft);
 
         JPanel centralRight = new JPanel(new GridLayout(3, 0));
@@ -121,14 +117,15 @@ public class AddQuantityOfProductUI extends JFrame implements ActionListener {
         JLabel label = new JLabel(labelText);
 
         labelAndTextPanel.add(label, "North");
-        if(comboBox.equals(groups)){
+        if (comboBox.equals(groups)) {
             for (int i = 0; i < groupsList.size(); i++) {
                 comboBox.addItem(groupsList.get(i).getName());
-            }}
-        else{
+            }
+        } else {
             for (int i = 0; i < productsList.size(); i++) {
                 comboBox.addItem(productsList.get(i).getName());
-            }}
+            }
+        }
         labelAndTextPanel.add(comboBox, "Center");
 
         originPanel.add(labelAndTextPanel);
@@ -193,14 +190,14 @@ public class AddQuantityOfProductUI extends JFrame implements ActionListener {
 
         this.setVisible(false);
         if (e.getSource().equals(changeQuantityProduct)) {
-            int prodNumb=products.getSelectedIndex();
-            Good prod =productsList.get(prodNumb);
-            prod.setAmount(prod.getAmount()+(Integer) amount.getValue());
-                    JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+            int prodNumb = products.getSelectedIndex();
+            Good prod = productsList.get(prodNumb);
+            prod.setAmount(prod.getAmount() + (Integer) amount.getValue());
+            JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 
-                    oldProductName.setText("");
-                    rememOldProdName="NO text";
-                    this.setVisible(true);
+            oldProductName.setText("");
+            rememOldProdName = "NO text";
+            this.setVisible(true);
         } else {
             workWithProductUI.returned();
         }

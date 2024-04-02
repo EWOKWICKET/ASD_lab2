@@ -14,18 +14,6 @@ public class Storage {
     private static BufferedWriter bw;
 
     private Storage() {
-//        groups.add(new Group("Крупи"));
-//        groups.add(new Group("T2"));
-//        groups.add(new Group("T3"));
-//        groups.get(0).addGood(new Good("Крупи", "qwerty", "fwe", "me", 10, 25));
-//        groups.get(0).addGood(new Good("Крупи", "qwertyqefw", "fwe", "me", 10, 25));
-//        groups.get(0).addGood(new Good("Крупи", "qwery", "fwe", "me", 10, 25));
-//        groups.get(1).addGood(new Good("T2", "quarry", "fwe", "me", 10, 25));
-//        groups.get(1).addGood(new Good("T2", "quabrry", "fwe", "me", 10, 25));
-//        groups.get(1).addGood(new Good("T2", "qq", "fwe", "me", 10, 25));
-//        groups.get(2).addGood(new Good("T3", "jrtwre", "fwe", "me", 10, 25));
-//        groups.get(2).addGood(new Good("T3", "ewgew", "fwe", "me", 10, 25));
-
     }
 
     public static Storage getInstance() {
@@ -46,10 +34,6 @@ public class Storage {
         groups.remove(group);
     }
 
-    public void changeGroup(Group group) {
-
-    }
-
     /**
      * @return price of all goods on storage
      */
@@ -66,7 +50,7 @@ public class Storage {
     }
 
     /**
-     * Prints all gods on storage
+     * @return all storage goods
      */
     public String getAllStorageGoods() {
         StringBuilder text = new StringBuilder();
@@ -123,81 +107,86 @@ public class Storage {
     }
 
     /**
-     * Opens and updates each file
+     * Opens and updates a file
      *
      * @param name of a group and a file
      * @throws IOException
      */
     private static void updateFile(String name) throws IOException {
         try {
-            bw = new BufferedWriter(new FileWriter("lab2/Groups/" + name+".txt"));
+            bw = new BufferedWriter(new FileWriter("lab2/Groups/" + name + ".txt"));
         } catch (IOException e) {
             System.out.println("File not found");
         }
         for (Good good : (groups.get(findGroup(name))).getGoods()) {
-            bw.write(good.writeInFile()+ "\n");
+            bw.write(good.writeInFile() + "\n");
         }
         bw.close();
     }
 
-    public void readFiles(){
-        File folder=new File("lab2/Groups");
-        File[] fileList=folder.listFiles();
-        for(File file:fileList){
+    /**
+     * reads info from files
+     */
+    public void readFiles() {
+        File folder = new File("lab2/Groups");
+        File[] fileList = folder.listFiles();
+        for (File file : fileList) {
             readFile(file);
         }
         sortGroups();
     }
 
+    /**
+     * reads info from each file
+     * @param file
+     */
     private void readFile(File file) {
         try {
-            BufferedReader br=new BufferedReader(new FileReader(file.getPath()));
-            String groupName=file.getName();
-            groupName=groupName.replaceAll(".txt", "");
-            ArrayList<Good> goods=new ArrayList<>();
+            BufferedReader br = new BufferedReader(new FileReader(file.getPath()));
+            String groupName = file.getName();
+            groupName = groupName.replaceAll(".txt", "");
+            ArrayList<Good> goods = new ArrayList<>();
             String goodString;
-            do{
-                goodString= br.readLine();
-                if(goodString!=null && !goodString.isBlank()){
+            do {
+                goodString = br.readLine();
+                if (goodString != null && !goodString.isBlank()) {
                     createNewGood(goodString, goods, groupName);
                 }
 
-            }while(goodString!=null);
-            groups.add(new Group(groupName,goods));
+            } while (goodString != null);
+            groups.add(new Group(groupName, goods));
             br.close();
-        }
-        catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error in reading");
         }
     }
 
     private void createNewGood(String goodString, ArrayList<Good> goods, String groupName) {
-        StringTokenizer st=new StringTokenizer(goodString, "|");
+        StringTokenizer st = new StringTokenizer(goodString, "|");
 
-        String name=st.nextToken();
+        String name = st.nextToken();
 
-        StringTokenizer desSt=new StringTokenizer(st.nextToken(), ":");
-        String descr=desSt.nextToken();
-        descr=desSt.nextToken();
+        StringTokenizer desSt = new StringTokenizer(st.nextToken(), ":");
+        String descr = desSt.nextToken();
+        descr = desSt.nextToken();
 
-        StringTokenizer mnfSt=new StringTokenizer(st.nextToken(), ":");
-        String mnf=mnfSt.nextToken();
-        mnf=mnfSt.nextToken();
+        StringTokenizer mnfSt = new StringTokenizer(st.nextToken(), ":");
+        String mnf = mnfSt.nextToken();
+        mnf = mnfSt.nextToken();
 
-        StringTokenizer amountSt=new StringTokenizer(st.nextToken(), ":");
-        String amountStr=amountSt.nextToken();
-        amountStr=amountSt.nextToken();
-        int amount=Integer.parseInt(amountStr);
+        StringTokenizer amountSt = new StringTokenizer(st.nextToken(), ":");
+        String amountStr = amountSt.nextToken();
+        amountStr = amountSt.nextToken();
+        int amount = Integer.parseInt(amountStr);
 
-        StringTokenizer priceSt=new StringTokenizer(st.nextToken(), ":");
-        String priceStr=priceSt.nextToken();
-        priceStr=priceSt.nextToken();
-        float price=Float.parseFloat(priceStr);
+        StringTokenizer priceSt = new StringTokenizer(st.nextToken(), ":");
+        String priceStr = priceSt.nextToken();
+        priceStr = priceSt.nextToken();
+        float price = Float.parseFloat(priceStr);
 
-        goods.add(new Good(groupName, name,descr,mnf,amount,price));
+        goods.add(new Good(groupName, name, descr, mnf, amount, price));
     }
 
     /**

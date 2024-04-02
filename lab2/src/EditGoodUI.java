@@ -33,18 +33,18 @@ public class EditGoodUI extends JFrame implements ActionListener {
 
         storage = Storage.getInstance();
         groupsList = storage.getGroups();
-        productsList=storage.findGood("");
+        productsList = storage.findGood("");
         setWindow();
         class listOfGoodsUpdateThread implements Runnable {
             public void run() {
-                while (true){
-                    if(!oldProductName.getText().equals(rememOldProdName)){
-                productsList=storage.findGood(oldProductName.getText());
-                products.removeAllItems();
-                for (int i = 0; i < productsList.size(); i++) {
-                    products.addItem(productsList.get(i).getName());
-                }
-                rememOldProdName=oldProductName.getText();
+                while (true) {
+                    if (!oldProductName.getText().equals(rememOldProdName)) {
+                        productsList = storage.findGood(oldProductName.getText());
+                        products.removeAllItems();
+                        for (int i = 0; i < productsList.size(); i++) {
+                            products.addItem(productsList.get(i).getName());
+                        }
+                        rememOldProdName = oldProductName.getText();
                     }
 
                     try {
@@ -97,19 +97,19 @@ public class EditGoodUI extends JFrame implements ActionListener {
         JPanel centralLeft = new JPanel(new GridLayout(2, 0));
         JPanel centralLeftUp = new JPanel(new GridLayout(2, 1));
         productName = new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(productName, "Нова назва товару", centralLeftUp);
+        createTextFieldWithLabelWithAndAddToPanel(productName, "Нова назва товару", centralLeftUp);
         manufacturer = new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(manufacturer, "Виробник", centralLeftUp);
+        createTextFieldWithLabelWithAndAddToPanel(manufacturer, "Виробник", centralLeftUp);
         centralLeft.add(centralLeftUp);
         description = new JTextArea();
-        createAreaFiedWithLabelWithAndAddToPanel(description, "Опис", centralLeft);
+        createAreaFieldWithLabelWithAndAddToPanel(description, "Опис", centralLeft);
 
         JPanel centralRight = new JPanel(new GridLayout(5, 0));
 
         oldProductName = new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(oldProductName, "Назва товару", centralRight);
+        createTextFieldWithLabelWithAndAddToPanel(oldProductName, "Назва товару", centralRight);
 
-        products=new JComboBox();
+        products = new JComboBox();
         createComboBoxWithLabelWithAndAddToPanel(products, "Товари", centralRight);
 
         groups = new JComboBox();
@@ -133,14 +133,15 @@ public class EditGoodUI extends JFrame implements ActionListener {
         JLabel label = new JLabel(labelText);
 
         labelAndTextPanel.add(label, "North");
-        if(comboBox.equals(groups)){
-        for (int i = 0; i < groupsList.size(); i++) {
-            comboBox.addItem(groupsList.get(i).getName());
-        }}
-        else{
+        if (comboBox.equals(groups)) {
+            for (int i = 0; i < groupsList.size(); i++) {
+                comboBox.addItem(groupsList.get(i).getName());
+            }
+        } else {
             for (int i = 0; i < productsList.size(); i++) {
                 comboBox.addItem(productsList.get(i).getName());
-            }}
+            }
+        }
         labelAndTextPanel.add(comboBox, "Center");
 
         originPanel.add(labelAndTextPanel);
@@ -153,10 +154,9 @@ public class EditGoodUI extends JFrame implements ActionListener {
         JLabel label = new JLabel(labelText);
 
         labelAndTextPanel.add(label, "North");
-        if(spinner.equals(amount)) {
+        if (spinner.equals(amount)) {
             spinner.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-        }
-        else{
+        } else {
             spinner.setModel(new SpinnerNumberModel(0.1, 0.1, Integer.MAX_VALUE, 0.1));
         }
         labelAndTextPanel.add(spinner, "Center");
@@ -164,7 +164,7 @@ public class EditGoodUI extends JFrame implements ActionListener {
         originPanel.add(labelAndTextPanel);
     }
 
-    private void createAreaFiedWithLabelWithAndAddToPanel(JTextArea textArea, String labelText, JPanel originPanel) {
+    private void createAreaFieldWithLabelWithAndAddToPanel(JTextArea textArea, String labelText, JPanel originPanel) {
         JPanel labelAndTextPanel = new JPanel(new BorderLayout());
         labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         labelAndTextPanel.setBackground(Color.LIGHT_GRAY);
@@ -177,7 +177,7 @@ public class EditGoodUI extends JFrame implements ActionListener {
         originPanel.add(labelAndTextPanel);
     }
 
-    private void createTextFiedWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
+    private void createTextFieldWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
         JPanel labelAndTextPanel = new JPanel(new BorderLayout());
         labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         labelAndTextPanel.setBackground(Color.LIGHT_GRAY);
@@ -223,23 +223,23 @@ public class EditGoodUI extends JFrame implements ActionListener {
 
         this.setVisible(false);
         if (e.getSource().equals(changeProduct)) {
-            int prodNumb=products.getSelectedIndex();
-            Good prod =productsList.get(prodNumb);
+            int prodNumb = products.getSelectedIndex();
+            Good prod = productsList.get(prodNumb);
             if (storage.findGood(productName.getText()).isEmpty() ||
                     storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
-                String text=productName.getText();
-                if(!text.isBlank()) {
+                String text = productName.getText();
+                if (!text.isBlank()) {
 
                     storage.deleteGood(prod.getName());
                     int groupNumb = groups.getSelectedIndex();
                     Group tempGr = groupsList.get(groupNumb);
-                    tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(),  Float.parseFloat(Double.toString((Double) price.getValue()))));
+                    tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), Float.parseFloat(Double.toString((Double) price.getValue()))));
                     JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 
                     oldProductName.setText("");
-                    rememOldProdName="NO text";
+                    rememOldProdName = "NO text";
                     this.setVisible(true);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Не можна створити товар з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
                     this.setVisible(true);
                 }

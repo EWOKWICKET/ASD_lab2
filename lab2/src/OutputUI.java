@@ -3,7 +3,6 @@ import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 
 public class OutputUI extends JFrame implements ActionListener {
     protected MainMenu menu;

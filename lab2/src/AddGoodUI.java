@@ -71,12 +71,12 @@ public class AddGoodUI extends JFrame implements ActionListener {
         JPanel centralLeft = new JPanel(new GridLayout(2, 0));
         JPanel centralLeftUp = new JPanel(new GridLayout(2, 1));
         productName = new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(productName, "Назва товару", centralLeftUp);
+        createTextFieldWithLabelWithAndAddToPanel(productName, "Назва товару", centralLeftUp);
         manufacturer = new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(manufacturer, "Виробник", centralLeftUp);
+        createTextFieldWithLabelWithAndAddToPanel(manufacturer, "Виробник", centralLeftUp);
         centralLeft.add(centralLeftUp);
         description = new JTextArea();
-        createAreaFiedWithLabelWithAndAddToPanel(description, "Опис", centralLeft);
+        createAreaFieldWithLabelWithAndAddToPanel(description, "Опис", centralLeft);
 
 
         JPanel centralRight = new JPanel(new GridLayout(3, 0));
@@ -117,10 +117,9 @@ public class AddGoodUI extends JFrame implements ActionListener {
         JLabel label = new JLabel(labelText);
 
         labelAndTextPanel.add(label, "North");
-        if(spinner.equals(amount)) {
+        if (spinner.equals(amount)) {
             spinner.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-        }
-        else{
+        } else {
             spinner.setModel(new SpinnerNumberModel(0.1, 0.1, Integer.MAX_VALUE, 0.1));
         }
         labelAndTextPanel.add(spinner, "Center");
@@ -128,7 +127,7 @@ public class AddGoodUI extends JFrame implements ActionListener {
         originPanel.add(labelAndTextPanel);
     }
 
-    private void createAreaFiedWithLabelWithAndAddToPanel(JTextArea textArea, String labelText, JPanel originPanel) {
+    private void createAreaFieldWithLabelWithAndAddToPanel(JTextArea textArea, String labelText, JPanel originPanel) {
         JPanel labelAndTextPanel = new JPanel(new BorderLayout());
         labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         labelAndTextPanel.setBackground(Color.LIGHT_GRAY);
@@ -141,7 +140,7 @@ public class AddGoodUI extends JFrame implements ActionListener {
         originPanel.add(labelAndTextPanel);
     }
 
-    private void createTextFiedWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
+    private void createTextFieldWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
         JPanel labelAndTextPanel = new JPanel(new BorderLayout());
         labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         labelAndTextPanel.setBackground(Color.LIGHT_GRAY);
@@ -190,16 +189,15 @@ public class AddGoodUI extends JFrame implements ActionListener {
 
             if (storage.findGood(productName.getText()).isEmpty() ||
                     !storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
-                String text=productName.getText();
-                if(!text.isBlank()) {
-                    if(!text.equals("Окуляри")) {
+                String text = productName.getText();
+                if (!text.isBlank()) {
+                    if (!text.equals("окуляри")) {
                         int groupNumb = groups.getSelectedIndex();
                         Group tempGr = groupsList.get(groupNumb);
                         tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), Float.parseFloat(Double.toString((Double) price.getValue()))));
                         JOptionPane.showMessageDialog(null, "Товар додано", "Успіх", JOptionPane.INFORMATION_MESSAGE);
                         this.setVisible(true);
-                    }
-                    else{
+                    } else {
                         ImageIcon imageIcon = new ImageIcon("lab2/Images/estrEgg.gif");
 
                         imageFrame = new JFrame("Easter Egg");
@@ -214,24 +212,24 @@ public class AddGoodUI extends JFrame implements ActionListener {
                         imageLabel.setVerticalAlignment(JLabel.CENTER);
 
                         imageFrame.add(imageLabel, "Center");
-                        JPanel backButton=new JPanel(new FlowLayout());
+                        JPanel backButton = new JPanel(new FlowLayout());
                         backButton.setBackground(Color.GRAY);
-                        back=new JButton();
-                        createButtonWithAndAddToPanel(back, "Повернутися назад",backButton);
+                        back = new JButton();
+                        createButtonWithAndAddToPanel(back, "Повернутися назад", backButton);
 
                         imageFrame.add(backButton, "South");
 
                     }
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Не можна створити товар з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
                     this.setVisible(true);
                 }
             } else {
-                    JOptionPane.showMessageDialog(null, "Така назва товару вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Така назва товару вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
                 this.setVisible(true);
             }
         } else {
-            if(imageFrame!=null){
+            if (imageFrame != null) {
                 imageFrame.setVisible(false);
             }
             workWithProductUI.returned();

@@ -13,7 +13,6 @@ public class EditGroupUI extends JFrame implements ActionListener {
     JButton changeGroup;
     JButton back;
 
-
     public EditGroupUI() {
         super("Додати товар");
         this.setSize(700, 500);
@@ -66,7 +65,7 @@ public class EditGroupUI extends JFrame implements ActionListener {
 
         JPanel centralLeft = new JPanel(new GridLayout(3, 0));
         groupName = new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(groupName, "Нова назва групи", centralLeft);
+        createTextFieldWithLabelWithAndAddToPanel(groupName, "Нова назва групи", centralLeft);
 
         JPanel centralRight = new JPanel(new GridLayout(2, 0));
 
@@ -89,16 +88,16 @@ public class EditGroupUI extends JFrame implements ActionListener {
 
         labelAndTextPanel.add(label, "North");
 
-            for (int i = 0; i < groupsList.size(); i++) {
-                comboBox.addItem(groupsList.get(i).getName());
-            }
+        for (int i = 0; i < groupsList.size(); i++) {
+            comboBox.addItem(groupsList.get(i).getName());
+        }
 
         labelAndTextPanel.add(comboBox, "Center");
 
         originPanel.add(labelAndTextPanel);
     }
 
-    private void createTextFiedWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
+    private void createTextFieldWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
         JPanel labelAndTextPanel = new JPanel(new BorderLayout());
         labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         labelAndTextPanel.setBackground(Color.LIGHT_GRAY);
@@ -147,23 +146,22 @@ public class EditGroupUI extends JFrame implements ActionListener {
 
         this.setVisible(false);
         if (e.getSource().equals(changeGroup)) {
-                if(Storage.findGroup(groupName.getText())==-1) {
-                    if (!groupName.getText().isEmpty()) {
-                        int groupNumb=groups.getSelectedIndex();
-                        Group group=groupsList.get(groupNumb);
-                        group.setName(groupName.getText());
-                        JOptionPane.showMessageDialog(null, "Групу змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
-                        workWithGroupUI.returned();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Не можна створити групу з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
-                        this.setVisible(true);
-                    }
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Така назва групи вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
+            if (Storage.findGroup(groupName.getText()) == -1) {
+                if (!groupName.getText().isEmpty()) {
+                    int groupNumb = groups.getSelectedIndex();
+                    Group group = groupsList.get(groupNumb);
+                    group.setName(groupName.getText());
+                    JOptionPane.showMessageDialog(null, "Групу змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+                    workWithGroupUI.returned();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Не можна створити групу з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
                     this.setVisible(true);
                 }
             } else {
+                JOptionPane.showMessageDialog(null, "Така назва групи вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
+                this.setVisible(true);
+            }
+        } else {
             workWithGroupUI.returned();
 
         }

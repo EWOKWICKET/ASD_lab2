@@ -10,7 +10,7 @@ public class AddGroupUI extends JFrame implements ActionListener {
     JButton addGroup;
     JButton back;
 
-    public AddGroupUI(){
+    public AddGroupUI() {
         super("Додати групу");
         this.setSize(700, 500);
         this.setLayout(new BorderLayout());
@@ -24,6 +24,7 @@ public class AddGroupUI extends JFrame implements ActionListener {
 
         this.setVisible(true);
     }
+
     private void setWindow() {
         //create upper part label with picture
         addUpperPart();
@@ -58,12 +59,12 @@ public class AddGroupUI extends JFrame implements ActionListener {
         centralPart.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
         JPanel centralUp = new JPanel(new GridLayout(1, 0));
-        groupName=new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(groupName,"Назва групи:", centralUp);
+        groupName = new JTextField();
+        createTextFiedWithLabelWithAndAddToPanel(groupName, "Назва групи:", centralUp);
 
         JPanel centralDown = new JPanel(new GridLayout(1, 0));
-        addGroup=new JButton();
-        createButtonWithAndAddToPanel(addGroup,"Додати групу", centralDown);
+        addGroup = new JButton();
+        createButtonWithAndAddToPanel(addGroup, "Додати групу", centralDown);
 
 
         centralPart.add(centralUp, "North");
@@ -98,13 +99,13 @@ public class AddGroupUI extends JFrame implements ActionListener {
     public void setWorkWithGroupUI(WorkWithGroupUI workWithGroupUI) {
         this.workWithGroupUI = workWithGroupUI;
     }
+
     private void createButtonWithAndAddToPanel(JButton button, String buttonLabel, JPanel originPanel) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-        if(!button.equals(back)){
+        if (!button.equals(back)) {
             buttonPanel.setBackground(Color.LIGHT_GRAY);
-        }
-        else{
+        } else {
             buttonPanel.setBackground(Color.GRAY);
         }
 
@@ -121,8 +122,8 @@ public class AddGroupUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         this.setVisible(false);
-        if(e.getSource().equals(addGroup)){
-            if(Storage.findGroup(groupName.getText())==-1) {
+        if (e.getSource().equals(addGroup)) {
+            if (Storage.findGroup(groupName.getText()) == -1) {
                 if (!groupName.getText().isEmpty()) {
                     storage.addGroup(new Group(groupName.getText()));
                     JOptionPane.showMessageDialog(null, "Групу додано", "Успіх", JOptionPane.INFORMATION_MESSAGE);
@@ -131,13 +132,11 @@ public class AddGroupUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Не можна створити групу з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
                     this.setVisible(true);
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Така назва групи вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
                 this.setVisible(true);
             }
-        }
-        else {
+        } else {
             workWithGroupUI.returned();
         }
 

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class DeleteGroupUI extends JFrame implements ActionListener {
     Storage storage;
     WorkWithGroupUI workWithGroupUI;
-
     ArrayList<Group> groupsList;
     JComboBox groups;
     JButton deleteGroup;
@@ -23,7 +22,7 @@ public class DeleteGroupUI extends JFrame implements ActionListener {
         this.setIconImage(icon.getImage());
 
         storage = Storage.getInstance();
-        groupsList=storage.getGroups();
+        groupsList = storage.getGroups();
         setWindow();
         this.setVisible(true);
 
@@ -62,9 +61,9 @@ public class DeleteGroupUI extends JFrame implements ActionListener {
         JPanel centralPart = new JPanel(new GridLayout(0, 2));
         centralPart.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-        JPanel centralLeft = new JPanel(new GridLayout(1,0));
+        JPanel centralLeft = new JPanel(new GridLayout(1, 0));
         centralLeft.setBackground(Color.lightGray);
-        groups=new JComboBox();
+        groups = new JComboBox();
         createComboBoxWithLabelWithAndAddToPanel(groups, "Групи", centralLeft);
 
 
@@ -77,6 +76,7 @@ public class DeleteGroupUI extends JFrame implements ActionListener {
         centralPart.add(centralRight);
         this.add(centralPart, "Center");
     }
+
     private void createComboBoxWithLabelWithAndAddToPanel(JComboBox comboBox, String labelText, JPanel originPanel) {
         JPanel labelAndTextPanel = new JPanel(new BorderLayout());
         labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -129,8 +129,8 @@ public class DeleteGroupUI extends JFrame implements ActionListener {
 
         this.setVisible(false);
         if (e.getSource().equals(deleteGroup)) {
-            int groupNumb=groups.getSelectedIndex();
-            Group gr=groupsList.get(groupNumb);
+            int groupNumb = groups.getSelectedIndex();
+            Group gr = groupsList.get(groupNumb);
             storage.deleteGroup(gr);
             JOptionPane.showMessageDialog(null, "Групу видалено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 

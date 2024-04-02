@@ -27,8 +27,8 @@ public class OutputUIGroups extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setIconImage(new ImageIcon("lab2/Images/wareHouseIcon.png").getImage());
 
-        this.mode=mode;
-        storage=Storage.getInstance();
+        this.mode = mode;
+        storage = Storage.getInstance();
         groupsList = storage.getGroups();
         setOutput();
 
@@ -86,7 +86,7 @@ public class OutputUIGroups extends JFrame implements ActionListener {
         back = new JButton();
         createButtonWithAndAddToPanel(back, "Повернутися назад", lowerPanel);
 
-        groups=new JComboBox();
+        groups = new JComboBox();
         createComboBoxWithLabelWithAndAddToPanel(groups, "Група:", lowerPanel);
         print = new JButton();
         createButtonWithAndAddToPanel(print, "Вивести", lowerPanel);
@@ -106,6 +106,7 @@ public class OutputUIGroups extends JFrame implements ActionListener {
         buttonPanel.add(button);
         originPanel.add(buttonPanel);
     }
+
     private void createComboBoxWithLabelWithAndAddToPanel(JComboBox comboBox, String labelText, JPanel originPanel) {
         JPanel labelAndTextPanel = new JPanel(new BorderLayout());
         labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -127,20 +128,18 @@ public class OutputUIGroups extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         this.setVisible(false);
-        if(e.getSource().equals(print)){
-            int groupNumb=groups.getSelectedIndex();
-            Group gr=groupsList.get(groupNumb);
-            if(mode==0){
+        if (e.getSource().equals(print)) {
+            int groupNumb = groups.getSelectedIndex();
+            Group gr = groupsList.get(groupNumb);
+            if (mode == 0) {
                 setText(gr.getAllGroupGoods());
-            }
-            else{
-                setText("Загальна вартість товарів в групі:"+Float.toString(gr.getGroupPrice()));
+            } else {
+                setText("Кількість товарів у групі: " + gr.getGoods().size() + "\nЗагальна вартість товарів в групі:" + gr.getGroupPrice());
 
             }
 
             this.setVisible(true);
-        }
-        else{
+        } else {
             stats.returned();
         }
 

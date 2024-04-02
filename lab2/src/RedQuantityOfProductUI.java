@@ -32,18 +32,18 @@ public class RedQuantityOfProductUI extends JFrame implements ActionListener {
         this.setIconImage(icon.getImage());
 
         storage = Storage.getInstance();
-        productsList=storage.findGood("");
+        productsList = storage.findGood("");
         setWindow();
         class listOfGoodsUpdateThread implements Runnable {
             public void run() {
-                while (true){
-                    if(!oldProductName.getText().equals(rememOldProdName)){
-                        productsList=storage.findGood(oldProductName.getText());
+                while (true) {
+                    if (!oldProductName.getText().equals(rememOldProdName)) {
+                        productsList = storage.findGood(oldProductName.getText());
                         products.removeAllItems();
                         for (int i = 0; i < productsList.size(); i++) {
                             products.addItem(productsList.get(i).getName());
                         }
-                        rememOldProdName=oldProductName.getText();
+                        rememOldProdName = oldProductName.getText();
                     }
 
                     try {
@@ -97,9 +97,9 @@ public class RedQuantityOfProductUI extends JFrame implements ActionListener {
         JPanel centralLeft = new JPanel(new GridLayout(3, 0));
         centralLeft.setBackground(Color.LIGHT_GRAY);
         oldProductName = new JTextField();
-        createTextFiedWithLabelWithAndAddToPanel(oldProductName, "Назва товару", centralLeft);
+        createTextFieldWithLabelWithAndAddToPanel(oldProductName, "Назва товару", centralLeft);
 
-        products=new JComboBox();
+        products = new JComboBox();
         createComboBoxWithLabelWithAndAddToPanel(products, "Товари", centralLeft);
 
         JPanel centralRight = new JPanel(new GridLayout(3, 0));
@@ -121,14 +121,15 @@ public class RedQuantityOfProductUI extends JFrame implements ActionListener {
         JLabel label = new JLabel(labelText);
 
         labelAndTextPanel.add(label, "North");
-        if(comboBox.equals(groups)){
+        if (comboBox.equals(groups)) {
             for (int i = 0; i < groupsList.size(); i++) {
                 comboBox.addItem(groupsList.get(i).getName());
-            }}
-        else{
+            }
+        } else {
             for (int i = 0; i < productsList.size(); i++) {
                 comboBox.addItem(productsList.get(i).getName());
-            }}
+            }
+        }
         labelAndTextPanel.add(comboBox, "Center");
 
         originPanel.add(labelAndTextPanel);
@@ -147,7 +148,7 @@ public class RedQuantityOfProductUI extends JFrame implements ActionListener {
         originPanel.add(labelAndTextPanel);
     }
 
-    private void createTextFiedWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
+    private void createTextFieldWithLabelWithAndAddToPanel(JTextField textField, String labelText, JPanel originPanel) {
         JPanel labelAndTextPanel = new JPanel(new BorderLayout());
         labelAndTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         labelAndTextPanel.setBackground(Color.LIGHT_GRAY);
@@ -193,17 +194,17 @@ public class RedQuantityOfProductUI extends JFrame implements ActionListener {
 
         this.setVisible(false);
         if (e.getSource().equals(changeQuantityProduct)) {
-            int prodNumb=products.getSelectedIndex();
-            Good prod =productsList.get(prodNumb);
-            int amounts=prod.getAmount()-(Integer) amount.getValue();
-            if(amounts<0){
-                amounts=0;
+            int prodNumb = products.getSelectedIndex();
+            Good prod = productsList.get(prodNumb);
+            int amounts = prod.getAmount() - (Integer) amount.getValue();
+            if (amounts < 0) {
+                amounts = 0;
             }
             prod.setAmount(amounts);
             JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 
             oldProductName.setText("");
-            rememOldProdName="NO text";
+            rememOldProdName = "NO text";
             this.setVisible(true);
         } else {
             workWithProductUI.returned();
