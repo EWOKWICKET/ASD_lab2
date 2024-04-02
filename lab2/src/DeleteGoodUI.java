@@ -1,3 +1,7 @@
+/*
+UI for deleting a good
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

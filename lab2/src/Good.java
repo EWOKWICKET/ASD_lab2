@@ -1,3 +1,7 @@
+/*
+Good class. Contains all necessary fields
+ */
+
 public class Good {
     private String name;
     private String description;
@@ -6,6 +10,15 @@ public class Good {
     private float price;
     private String group;
 
+    /**
+     * Full constructor
+     * @param group
+     * @param name
+     * @param description
+     * @param manufacturer
+     * @param amount
+     * @param price
+     */
     public Good(String group, String name, String description, String manufacturer, int amount, float price) {
         this.group = group;
         this.name = name;
@@ -14,7 +27,7 @@ public class Good {
         this.amount = amount;
         this.price = price;
     }
-
+    //Getters and setters
     public String getName() {
         return name;
     }
@@ -52,10 +65,16 @@ public class Good {
         this.price = price;
     }
 
+    /**
+     * @param amount to add to a good
+     */
     public void addAmount(int amount) {
         this.amount += amount;
     }
 
+    /**
+     * @param amount of goods to reduce
+     */
     public void reduceAmount(int amount) {
         this.amount -= amount;
     }
@@ -66,13 +85,6 @@ public class Good {
 
     public void setGroup(String group) {
         this.group = group;
-    }
-
-    /**
-     * @return full inforamation to write in file
-     */
-    public String writeInFile() {
-        return name + "|опис:" + description + "|виробник:" + manufacturer + "|кількість на складі:" + amount + "|ціна:" + price;
     }
 
     @Override

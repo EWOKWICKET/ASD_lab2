@@ -1,3 +1,7 @@
+/*
+UI for working with goods
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

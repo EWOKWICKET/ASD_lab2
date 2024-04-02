@@ -1,3 +1,7 @@
+/*
+UI for searching for a good
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

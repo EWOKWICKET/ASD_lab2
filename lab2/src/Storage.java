@@ -1,3 +1,7 @@
+/*
+Storage class wit all necessary methods for work with groups and statistacs methods
+ */
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +20,9 @@ public class Storage {
     private Storage() {
     }
 
+    /** Uses constructor if instance is null, else returns reference on it
+     * @return class reference
+     */
     public static Storage getInstance() {
         // Якщо екземпляр ще не існує, створюємо його
         if (instance == null) {
@@ -25,11 +32,26 @@ public class Storage {
         return instance;
     }
 
+    /**
+     * @return groups
+     */
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    /**
+     * Adds a group and sorts
+     * @param group
+     */
     public void addGroup(Group group) {
         groups.add(group);
         sortGroups();
     }
 
+    /**
+     * Deletes a group
+     * @param group
+     */
     public void deleteGroup(Group group) {
         groups.remove(group);
     }
@@ -50,7 +72,7 @@ public class Storage {
     }
 
     /**
-     * @return all storage goods
+     * @return all storage goods in String
      */
     public String getAllStorageGoods() {
         StringBuilder text = new StringBuilder();
@@ -61,9 +83,8 @@ public class Storage {
     }
 
     /**
-     * Searches for goods with correct pattern
-     *
-     * @param name pattern to use for search
+     * @param name - pattern to search
+     * @return ArrayList of found goods
      */
     public ArrayList<Good> findGood(String name) {
         ArrayList<Good> found = new ArrayList<>();
@@ -119,7 +140,7 @@ public class Storage {
             System.out.println("File not found");
         }
         for (Good good : (groups.get(findGroup(name))).getGoods()) {
-            bw.write(good.writeInFile() + "\n");
+            bw.write(good + "\n");
         }
         bw.close();
     }
@@ -163,6 +184,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a good according to read info
+     * @param goodString
+     * @param goods
+     * @param groupName
+     */
     private void createNewGood(String goodString, ArrayList<Good> goods, String groupName) {
         StringTokenizer st = new StringTokenizer(goodString, "|");
 
@@ -202,14 +229,17 @@ public class Storage {
         return -1;
     }
 
+    /**
+     * sorts groups by names
+     */
     private void sortGroups() {
         groups.sort(comparing(Group::getName));
     }
 
-    public ArrayList<Group> getGroups() {
-        return groups;
-    }
-
+    /**
+     * Searches and deletes a good
+     * @param name of a good
+     */
     public void deleteGood(String name) {
         for (Group group : groups) {
             for (Good good : group.getGoods()) {

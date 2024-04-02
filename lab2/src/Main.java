@@ -1,3 +1,7 @@
+/*
+Main class to start a program
+ */
+
 public class Main {
     private static Storage storage;
     private static MainMenu mainMenu;

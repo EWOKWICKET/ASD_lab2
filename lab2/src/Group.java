@@ -1,3 +1,7 @@
+/*
+Group class. Contains all necessary fields and methods
+ */
+
 import java.util.ArrayList;
 
 import static java.util.Comparator.comparing;
@@ -13,7 +17,7 @@ public class Group {
      */
     public Group(String name) {
         this.name = name;
-        goods = new ArrayList<>(2);
+        goods = new ArrayList<>(1);
     }
 
     /**
@@ -27,7 +31,7 @@ public class Group {
         this.goods = goods;
         sortGoods();
     }
-
+    //Setters and getters
     public String getName() {
         return name;
     }
@@ -44,7 +48,7 @@ public class Group {
     }
 
     /**
-     * Prints all goods of group
+     * @return all goods in group
      */
     public String getAllGroupGoods() {
         StringBuilder text = new StringBuilder();
@@ -55,10 +59,16 @@ public class Group {
         return text.toString();
     }
 
+    /** Adds a new good
+     * @param good - good to be added
+     */
     public void addGood(Good good) {
         goods.add(good);
     }
 
+    /** Deletes a good
+     * @param good - good to be deleted
+     */
     public void deleteGood(Good good) {
         goods.remove(good);
     }
@@ -74,6 +84,11 @@ public class Group {
         return sum;
     }
 
+    /**
+     *
+     * @param name - pattern for search
+     * @return ArrayList of found goods
+     */
     public ArrayList<Good> findGood(String name) {
         ArrayList<Good> found = new ArrayList<>();
         for (Good good : goods) {

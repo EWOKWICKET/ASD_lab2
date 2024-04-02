@@ -1,3 +1,7 @@
+/*
+UI for adding a group
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,3 +1,7 @@
+/*
+UI for reducing amount of a good
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,11 +13,7 @@ public class RedQuantityOfProductUI extends JFrame implements ActionListener {
     WorkWithProductUI workWithProductUI;
     JTextField oldProductName;
     String rememOldProdName;
-    JTextField productName;
-    JTextArea description;
-    JTextField manufacturer;
     JSpinner amount;
-    JSpinner price;
     JComboBox products;
     JComboBox groups;
     ArrayList<Group> groupsList;

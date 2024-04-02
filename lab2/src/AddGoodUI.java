@@ -1,3 +1,7 @@
+/*
+UI for adding a good
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -191,7 +195,7 @@ public class AddGoodUI extends JFrame implements ActionListener {
                     !storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
                 String text = productName.getText();
                 if (!text.isBlank()) {
-                    if (!text.equals("окуляри")) {
+                    if (!text.equals("Окуляри")) {
                         int groupNumb = groups.getSelectedIndex();
                         Group tempGr = groupsList.get(groupNumb);
                         tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), Float.parseFloat(Double.toString((Double) price.getValue()))));
