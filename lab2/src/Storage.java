@@ -140,7 +140,7 @@ public class Storage {
             System.out.println("File not found");
         }
         for (Good good : (groups.get(findGroup(name))).getGoods()) {
-            bw.write(good + "\n");
+            bw.write(good.toWrite() + "\n");
         }
         bw.close();
     }

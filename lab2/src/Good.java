@@ -87,6 +87,11 @@ public class Good {
         this.group = group;
     }
 
+    public String toWrite() {
+        if(description.isEmpty()) description=" ";
+        if(manufacturer.isEmpty()) manufacturer=" ";
+        return name + "| опис:" + description + "| виробник: " + manufacturer + "| кількість на складі:" + amount + "| ціна:" + price;
+    }
     @Override
     public String toString() {
         return name + " | опис: " + description + " | виробник: " + manufacturer + " | кількість на складі: " + amount + " | ціна: " + price;
