@@ -90,7 +90,7 @@ public class Good {
     public String toWrite() {
         if(description.isEmpty()) description=" ";
         if(manufacturer.isEmpty()) manufacturer=" ";
-        return name + "| опис:" + description + "| виробник: " + manufacturer + "| кількість на складі:" + amount + "| ціна:" + price;
+        return name + "| опис:" + description.replaceAll("\n", " ") + "| виробник: " + manufacturer + "| кількість на складі:" + amount + "| ціна:" + price;
     }
     @Override
     public String toString() {
