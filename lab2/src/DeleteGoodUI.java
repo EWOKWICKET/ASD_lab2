@@ -173,13 +173,17 @@ public class DeleteGoodUI extends JFrame implements ActionListener {
         this.setVisible(false);
         if (e.getSource().equals(deleteProduct)) {
             int prodNumb = products.getSelectedIndex();
-            Good prod = productsList.get(prodNumb);
-            storage.deleteGood(prod.getName());
-            JOptionPane.showMessageDialog(null, "Товар видалено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
-            oldProductName.setText("");
-            rememOldProdName = "NO text";
-            workWithProductUI.returned();
-
+            if (prodNumb != -1) {
+                Good prod = productsList.get(prodNumb);
+                storage.deleteGood(prod.getName());
+                JOptionPane.showMessageDialog(null, "Товар видалено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+                oldProductName.setText("");
+                rememOldProdName = "NO text";
+                workWithProductUI.returned();
+            } else {
+                JOptionPane.showMessageDialog(null, "Товар не обрано", "Упс", JOptionPane.INFORMATION_MESSAGE);
+                this.setVisible(true);
+            }
         } else {
             workWithProductUI.returned();
         }

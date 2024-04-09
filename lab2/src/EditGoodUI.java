@@ -243,28 +243,33 @@ public class EditGoodUI extends JFrame implements ActionListener {
         this.setVisible(false);
         if (e.getSource().equals(changeProduct)) {
             int prodNumb = products.getSelectedIndex();
-            Good prod = productsList.get(prodNumb);
-            if (storage.findGood(productName.getText()).isEmpty() ||
-                    prod.getName().equals(productName.getText())
-                    || !storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
-                String text = productName.getText();
-                if (!text.isBlank()) {
+            if (prodNumb != -1) {
+                Good prod = productsList.get(prodNumb);
+                if (storage.findGood(productName.getText()).isEmpty() ||
+                        prod.getName().equals(productName.getText())
+                        || !storage.findGood(productName.getText()).getFirst().getName().equals(productName.getText())) {
+                    String text = productName.getText();
+                    if (!text.isBlank()) {
 
-                    storage.deleteGood(prod.getName());
-                    int groupNumb = groups.getSelectedIndex();
-                    Group tempGr = groupsList.get(groupNumb);
-                    tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), Float.parseFloat(Double.toString((Double) price.getValue()))));
-                    JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+                        storage.deleteGood(prod.getName());
+                        int groupNumb = groups.getSelectedIndex();
+                        Group tempGr = groupsList.get(groupNumb);
+                        tempGr.addGood(new Good(tempGr.getName(), productName.getText(), description.getText(), manufacturer.getText(), (Integer) amount.getValue(), Float.parseFloat(Double.toString((Double) price.getValue()))));
+                        JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 
-                    oldProductName.setText("");
-                    rememOldProdName = "NO text";
-                    this.setVisible(true);
+                        oldProductName.setText("");
+                        rememOldProdName = "NO text";
+                        this.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Не можна створити товар з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
+                        this.setVisible(true);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Не можна створити товар з порожнім ім'ям", "Помилка", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Така назва товару вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
                     this.setVisible(true);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Така назва товару вже існує", "Помилка", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Товар не обрано", "Упс", JOptionPane.INFORMATION_MESSAGE);
                 this.setVisible(true);
             }
         } else {

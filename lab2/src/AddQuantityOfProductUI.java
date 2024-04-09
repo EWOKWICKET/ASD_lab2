@@ -195,12 +195,16 @@ public class AddQuantityOfProductUI extends JFrame implements ActionListener {
         this.setVisible(false);
         if (e.getSource().equals(changeQuantityProduct)) {
             int prodNumb = products.getSelectedIndex();
-            Good prod = productsList.get(prodNumb);
-            prod.setAmount(prod.getAmount() + (Integer) amount.getValue());
-            JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+            if (prodNumb != -1) {
+                Good prod = productsList.get(prodNumb);
+                prod.setAmount(prod.getAmount() + (Integer) amount.getValue());
+                JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 
-            oldProductName.setText("");
-            rememOldProdName = "NO text";
+                oldProductName.setText("");
+                rememOldProdName = "NO text";
+            } else {
+                JOptionPane.showMessageDialog(null, "Товар не обрано", "Упс", JOptionPane.INFORMATION_MESSAGE);
+            }
             this.setVisible(true);
         } else {
             workWithProductUI.returned();

@@ -195,15 +195,19 @@ public class RedQuantityOfProductUI extends JFrame implements ActionListener {
         this.setVisible(false);
         if (e.getSource().equals(changeQuantityProduct)) {
             int prodNumb = products.getSelectedIndex();
-            Good prod = productsList.get(prodNumb);
-            int amounts = prod.getAmount() - (Integer) amount.getValue();
-            if (amounts < 0) {
-                amounts = 0;
-            }
-            prod.setAmount(amounts);
-            JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
+            if (prodNumb != -1) {
+                Good prod = productsList.get(prodNumb);
+                int amounts = prod.getAmount() - (Integer) amount.getValue();
+                if (amounts < 0) {
+                    amounts = 0;
+                }
+                prod.setAmount(amounts);
+                JOptionPane.showMessageDialog(null, "Товар змінено", "Успіх", JOptionPane.INFORMATION_MESSAGE);
 
-            oldProductName.setText("");
+                oldProductName.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Товар не обрано", "Упс", JOptionPane.INFORMATION_MESSAGE);
+            }
             rememOldProdName = "NO text";
             this.setVisible(true);
         } else {
