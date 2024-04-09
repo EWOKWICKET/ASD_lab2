@@ -29,7 +29,7 @@ public class Group {
     public Group(String name, ArrayList<Good> goods) {
         this.name = name;
         this.goods = goods;
-        sortGoods();
+        //sortGoods();
     }
     //Setters and getters
     public String getName() {
