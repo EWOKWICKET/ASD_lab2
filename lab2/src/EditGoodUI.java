@@ -52,8 +52,10 @@ public class EditGoodUI extends JFrame implements ActionListener {
                         rememOldProdName = oldProductName.getText();
                     }
 
-                    if (products.getSelectedIndex() != selectedIndex) {
-                        updateChosenGoodInfo(productsList.get(products.getSelectedIndex()));
+                    if (!productsList.isEmpty() && products.getSelectedIndex() != selectedIndex) {
+                        int newIndex = products.getSelectedIndex();
+                        selectedIndex = newIndex;
+                        updateChosenGoodInfo(productsList.get(newIndex));
                     }
 
                     try {
