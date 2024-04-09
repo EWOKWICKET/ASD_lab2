@@ -25,6 +25,7 @@ public class EditGoodUI extends JFrame implements ActionListener {
     JButton changeProduct;
     JButton back;
     Thread updateProdList;
+    int selectedIndex = -1;
 
     public EditGoodUI() {
         super("Додати товар");
@@ -49,6 +50,10 @@ public class EditGoodUI extends JFrame implements ActionListener {
                             products.addItem(productsList.get(i).getName());
                         }
                         rememOldProdName = oldProductName.getText();
+                    }
+
+                    if (products.getSelectedIndex() != selectedIndex) {
+                        updateChosenGoodInfo(productsList.get(products.getSelectedIndex()));
                     }
 
                     try {
@@ -128,6 +133,14 @@ public class EditGoodUI extends JFrame implements ActionListener {
         centralPart.add(centralRight);
         this.add(centralPart, "Center");
 
+    }
+
+    private void updateChosenGoodInfo(Good good) {
+        productName.setText(good.getName());
+        description.setText(good.getDescription());
+        manufacturer.setText(good.getManufacturer());
+        amount.setValue(good.getAmount());
+        price.setValue(good.getPrice());
     }
 
     private void createComboBoxWithLabelWithAndAddToPanel(JComboBox comboBox, String labelText, JPanel originPanel) {
