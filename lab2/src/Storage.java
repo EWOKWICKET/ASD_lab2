@@ -15,7 +15,6 @@ import static java.util.Comparator.comparing;
 public class Storage {
     private static Storage instance;
     private static ArrayList<Group> groups = new ArrayList<>();
-    private static BufferedWriter bw;
 
     private Storage() {
     }
@@ -134,15 +133,13 @@ public class Storage {
      * @throws IOException
      */
     private static void updateFile(String name) throws IOException {
-        try {
-            bw = new BufferedWriter(new FileWriter("lab2/Groups/" + name + ".txt"));
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("lab2/Groups/" + name + ".txt"))) {
+            for (Good good : (groups.get(findGroup(name))).getGoods()) {
+                bw.write(good.toWrite() + "\n");
+            }
         } catch (IOException e) {
             System.out.println("File not found");
         }
-        for (Good good : (groups.get(findGroup(name))).getGoods()) {
-            bw.write(good.toWrite() + "\n");
-        }
-        bw.close();
     }
 
     /**
@@ -162,8 +159,7 @@ public class Storage {
      * @param file
      */
     private void readFile(File file) {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file.getPath()));
+        try (BufferedReader br = new BufferedReader(new FileReader(file.getPath()))) {
             String groupName = file.getName();
             groupName = groupName.replaceAll(".txt", "");
             ArrayList<Good> goods = new ArrayList<>();
@@ -176,7 +172,6 @@ public class Storage {
 
             } while (goodString != null);
             groups.add(new Group(groupName, goods));
-            br.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         } catch (IOException e) {

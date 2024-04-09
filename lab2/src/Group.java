@@ -64,6 +64,7 @@ public class Group {
      */
     public void addGood(Good good) {
         goods.add(good);
+        sortGoods();
     }
 
     /** Deletes a good
@@ -92,7 +93,10 @@ public class Group {
     public ArrayList<Good> findGood(String name) {
         ArrayList<Good> found = new ArrayList<>();
         for (Good good : goods) {
-            if (good.getName().matches(name + "([0-9_A-Za-zА-Яа-я]*\\s*){3}")) {
+//            if (good.getName().matches(name + "([0-9_A-Za-zА-Яа-я]*\\s*){3}")) {
+//                found.add(good);
+//            }
+            if (good.getName().startsWith(name)) {
                 found.add(good);
             }
         }
