@@ -26,6 +26,7 @@ public class EditGoodUI extends JFrame implements ActionListener {
     JButton back;
     Thread updateProdList;
     int selectedIndex = -1;
+    Good selectedGood;
 
     public EditGoodUI() {
         super("Додати товар");
@@ -39,6 +40,7 @@ public class EditGoodUI extends JFrame implements ActionListener {
         storage = Storage.getInstance();
         groupsList = storage.getGroups();
         productsList = storage.findGood("");
+        selectedGood=productsList.get(0);
         setWindow();
         class listOfGoodsUpdateThread implements Runnable {
             public void run() {
@@ -49,12 +51,19 @@ public class EditGoodUI extends JFrame implements ActionListener {
                         for (int i = 0; i < productsList.size(); i++) {
                             products.addItem(productsList.get(i).getName());
                         }
+                        if (!productsList.isEmpty()) {
+                            int newIndex =0;
+                            selectedGood=productsList.get(newIndex);
+                            updateChosenGoodInfo(productsList.get(newIndex));
+                        }
+
+
                         rememOldProdName = oldProductName.getText();
                     }
 
-                    if (!productsList.isEmpty() && products.getSelectedIndex() != selectedIndex) {
+                    if (!productsList.isEmpty() && !productsList.get(products.getSelectedIndex()).equals(selectedGood)) {
                         int newIndex = products.getSelectedIndex();
-                        selectedIndex = newIndex;
+                        selectedGood=productsList.get(newIndex);
                         updateChosenGoodInfo(productsList.get(newIndex));
                     }
 
@@ -141,8 +150,16 @@ public class EditGoodUI extends JFrame implements ActionListener {
         productName.setText(good.getName());
         description.setText(good.getDescription());
         manufacturer.setText(good.getManufacturer());
+        int groupNumb=0;
+        for(int i=0;i<groupsList.size();i++){
+            if(groupsList.get(i).getName().equals(good.getGroup())) {
+                groupNumb=i;
+                break;
+            }
+        }
+        groups.setSelectedIndex(groupNumb);
         amount.setValue(good.getAmount());
-        price.setValue(good.getPrice());
+        price.setValue(Double.parseDouble(Float.toString(good.getPrice())));
     }
 
     private void createComboBoxWithLabelWithAndAddToPanel(JComboBox comboBox, String labelText, JPanel originPanel) {
@@ -161,7 +178,8 @@ public class EditGoodUI extends JFrame implements ActionListener {
                 comboBox.addItem(productsList.get(i).getName());
             }
         }
-        labelAndTextPanel.add(comboBox, "Center");
+        JScrollPane sc=new JScrollPane(comboBox);
+        labelAndTextPanel.add(sc, "Center");
 
         originPanel.add(labelAndTextPanel);
     }
